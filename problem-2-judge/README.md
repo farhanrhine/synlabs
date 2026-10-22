@@ -11,17 +11,19 @@ Designed to evaluate model releases, conduct pairwise A/B benchmarking, and prov
 ```mermaid
 graph TD
     subgraph InputStage ["1. Test Suite Ingestion"]
-        A["Test Suite (.jsonl)<br/>Prompt + Reference + A/B Outputs"] --> B["Pairwise Comparator"]
+        A["Test Suite (suite_ab.jsonl)<br/>Prompt + Ground Truth Reference"] --> B["Pairwise Comparator Engine"]
+        M1["Candidate A: openai/gpt-oss-20b"] --> B
+        M2["Candidate B: qwen/qwen3.8-27b"] --> B
     end
 
     subgraph OrderPermutation ["2. Position-Swap Permutation"]
-        B --> C["Order 1: (Config A, Config B)"]
-        B --> D["Order 2: (Config B, Config A)"]
+        B --> C["Order 1: (openai/gpt-oss-20b, qwen/qwen3.8-27b)"]
+        B --> D["Order 2: (qwen/qwen3.8-27b, openai/gpt-oss-20b)"]
     end
 
     subgraph JudgeInference ["3. LLM Judge Evaluation"]
-        C --> E["Groq LLM Judge (openai/gpt-oss-120b)<br/>Structured Multi-Criteria Rubric"]
-        D --> F["Groq LLM Judge (openai/gpt-oss-120b)<br/>Structured Multi-Criteria Rubric"]
+        C --> E["Groq LLM Judge: openai/gpt-oss-120b<br/>Multi-Criteria Rubric (Correctness 0.35, etc.)"]
+        D --> F["Groq LLM Judge: openai/gpt-oss-120b<br/>Multi-Criteria Rubric (Correctness 0.35, etc.)"]
     end
 
     subgraph DefensiveParsing ["4. Defensive JSON Parser & Auditing"]
