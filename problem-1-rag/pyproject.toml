@@ -1,0 +1,26 @@
+[project]
+name = "problem-1-rag"
+version = "0.1.0"
+description = "Cost-Efficient Production RAG Service"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "beautifulsoup4>=4.15.0",
+    "fastapi>=0.159.1",
+    "fastembed>=0.9.0",
+    "groq>=1.7.0",
+    "httpx>=0.28.1",
+    "markdown>=3.11.2",
+    "numpy>=2.5.4",
+    "pydantic>=2.14.1",
+    "pydantic-settings>=2.16.1",
+    "pypdf>=6.21.2",
+    "pytest>=9.1.1",
+    "python-dotenv>=1.2.4",
+    "qdrant-client>=1.20.0",
+    "uvicorn>=0.54.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

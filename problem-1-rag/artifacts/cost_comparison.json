@@ -1,0 +1,53 @@
+{
+  "assumptions": {
+    "embedding_model": "BAAI/bge-small-en-v1.5",
+    "vector_dimension": 384,
+    "precision": "float32 (1,536 bytes/vector) with scalar quantization option to int8",
+    "hnsw_index_overhead": "1.5x vector size in memory/disk",
+    "metadata_storage_per_doc": "500 bytes (chunk text snippet + source metadata)",
+    "query_volume_assumed": "500,000 queries/month",
+    "region": "us-east-1 / EU-central",
+    "managed_db_reference": "Pinecone Standard Pod (s1/p1 instances) and Serverless compute"
+  },
+  "comparison_table": [
+    {
+      "scale": "100K vectors",
+      "vectors_count": 100000,
+      "raw_vector_size_mb": 150,
+      "total_ram_disk_mb": 350,
+      "qdrant_hardware": "Embedded on application server or AWS t4g.small (2GB RAM, 2 vCPU)",
+      "qdrant_monthly_cost": 8.0,
+      "managed_db_tier": "Pinecone Standard (minimum 1 pod tier)",
+      "managed_db_monthly_cost": 70.0,
+      "monthly_savings_dollars": 62.0,
+      "savings_percentage": "88.6%",
+      "notes": "At 100K vectors, a managed DB charges a heavy fixed pod tax for idle time. Embedded Qdrant runs inside app process for $0 incremental cost."
+    },
+    {
+      "scale": "1M vectors",
+      "vectors_count": 1000000,
+      "raw_vector_size_mb": 1536,
+      "total_ram_disk_mb": 3500,
+      "qdrant_hardware": "Dedicated VPS / AWS t4g.medium (4GB RAM, 20GB NVMe SSD)",
+      "qdrant_monthly_cost": 24.0,
+      "managed_db_tier": "Pinecone Standard (1-2 pods with high-availability replication)",
+      "managed_db_monthly_cost": 140.0,
+      "monthly_savings_dollars": 116.0,
+      "savings_percentage": "82.9%",
+      "notes": "Qdrant uses memory-mapped (mmap) storage on NVMe SSD, keeping active vectors hot in cache without requiring all vectors in expensive RAM."
+    },
+    {
+      "scale": "10M vectors",
+      "vectors_count": 10000000,
+      "raw_vector_size_mb": 15360,
+      "total_ram_disk_mb": 35000,
+      "qdrant_hardware": "Cloud instance e.g. AWS c6g.xlarge / Hetzner AX41 (16GB RAM, 64GB NVMe)",
+      "qdrant_monthly_cost": 75.0,
+      "managed_db_tier": "Pinecone 4x-8x pod cluster (s1/p1 tiers for 10M 384-dim vectors)",
+      "managed_db_monthly_cost": 560.0,
+      "monthly_savings_dollars": 485.0,
+      "savings_percentage": "86.6%",
+      "notes": "Enabling Qdrant's Scalar Quantization (SQ) reduces RAM footprint by 75% with <1% recall degradation, avoiding massive cloud pod bills."
+    }
+  ]
+}

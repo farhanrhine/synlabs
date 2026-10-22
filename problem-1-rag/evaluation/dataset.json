@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "question": "What ANN algorithms are dominant in modern vector databases according to the architecture guide?",
+    "reference_answer": "The two dominant ANN algorithms are Hierarchical Navigable Small World (HNSW) and Inverted File with Product Quantization (IVF-PQ).",
+    "gold_substrings": ["Hierarchical Navigable Small World (HNSW)", "Inverted File with Product Quantization (IVF-PQ)"],
+    "filters": {"source_type": "md"},
+    "is_answerable": true
+  },
+  {
+    "id": 2,
+    "question": "What is the query time search complexity of HNSW?",
+    "reference_answer": "HNSW has a logarithmic search complexity of O(log N).",
+    "gold_substrings": ["logarithmic search complexity O(log N)"],
+    "filters": {"source_type": "md"},
+    "is_answerable": true
+  },
+  {
+    "id": 3,
+    "question": "What is the primary drawback of IVF-PQ compared to uncompressed HNSW?",
+    "reference_answer": "The primary drawback of IVF-PQ is loss of precision and reduced recall@k compared to uncompressed HNSW.",
+    "gold_substrings": ["Loss of precision and reduced recall@k"],
+    "filters": {"source_type": "md"},
+    "is_answerable": true
+  },
+  {
+    "id": 4,
+    "question": "When is dot product distance mathematically equivalent to cosine similarity?",
+    "reference_answer": "Dot product is mathematically equivalent to cosine similarity for unit-normalized embeddings.",
+    "gold_substrings": ["unit-normalized embeddings where cosine similarity is mathematically equivalent to dot product"],
+    "filters": {"source_type": "md"},
+    "is_answerable": true
+  },
+  {
+    "id": 5,
+    "question": "How much raw storage is required to store 1M 384-dimensional vectors with 16-bit float precision?",
+    "reference_answer": "Approximately 768 MB of raw storage, plus approximately 1.5 GB for HNSW graph indexes.",
+    "gold_substrings": ["768 MB of raw storage", "1.5 GB for HNSW graph indexes"],
+    "filters": {"source_type": "md"},
+    "is_answerable": true
+  },
+  {
+    "id": 6,
+    "question": "What is the standard industry default chunk size and overlap for technical corpora?",
+    "reference_answer": "The standard industry default is a sliding window chunk size of 500 characters with an overlap of 100 characters.",
+    "gold_substrings": ["sliding window chunk size of 500 characters with an overlap of 100 characters"],
+    "filters": {"source_type": "html"},
+    "is_answerable": true
+  },
+  {
+    "id": 7,
+    "question": "How does the ingestion pipeline guarantee idempotency when documents are re-indexed?",
+    "reference_answer": "By computing a deterministic cryptographic hash (such as SHA-256) over document content, chunk index, and document identifier to derive a stable UUIDv5 that replaces the existing record in place without growing vector count.",
+    "gold_substrings": ["deterministic cryptographic hash (such as SHA-256)", "UUIDv5", "without growing the total vector count"],
+    "filters": {"source_type": "html"},
+    "is_answerable": true
+  },
+  {
+    "id": 8,
+    "question": "What guardrails are employed to prevent LLM hallucinations in RAG systems?",
+    "reference_answer": "Similarity threshold filtering, explicit refusal prompting, and verifiable chunk citations.",
+    "gold_substrings": ["Similarity Threshold Filtering", "Explicit Refusal Prompting", "Verifiable Citations"],
+    "filters": {"source_type": "html"},
+    "is_answerable": true
+  },
+  {
+    "id": 9,
+    "question": "What happens if a document chunk size is under 100 characters?",
+    "reference_answer": "Semantic context is lost if chunk size is too small.",
+    "gold_substrings": ["under 100 characters), semantic context is lost"],
+    "filters": {"source_type": "html"},
+    "is_answerable": true
+  },
+  {
+    "id": 10,
+    "question": "What happens if a document chunk size is over 2000 characters?",
+    "reference_answer": "Irrelevant noise dilutes the retrieved embedding vector if chunk size is too large.",
+    "gold_substrings": ["over 2000 characters), irrelevant noise dilutes"],
+    "filters": {"source_type": "html"},
+    "is_answerable": true
+  },
+  {
+    "id": 11,
+    "question": "What is the objective of Problem 1 in the take-home assignment?",
+    "reference_answer": "A QA service over a document corpus, backed by a low-cost vector store, with honest evaluation of retrieval quality, answer quality, latency, and cost.",
+    "gold_substrings": ["QA service over a document corpus, backed by a low-cost vector store"],
+    "filters": {"source_type": "pdf"},
+    "is_answerable": true
+  },
+  {
+    "id": 12,
+    "question": "Which vector stores are listed as choices in Problem 1 of the assignment?",
+    "reference_answer": "pgvector, Qdrant (self-hosted/embedded), ChromaDB, LanceDB, FAISS, and sqlite-vec.",
+    "gold_substrings": ["pgvector", "Qdrant", "ChromaDB", "LanceDB", "FAISS", "sqlite-vec"],
+    "filters": {"source_type": "pdf"},
+    "is_answerable": true
+  },
+  {
+    "id": 13,
+    "question": "What retrieval metrics must be evaluated in Problem 1?",
+    "reference_answer": "Recall@k / Hit Rate, MRR, nDCG@k, and context precision.",
+    "gold_substrings": ["Recall@k / Hit Rate", "MRR", "nDCG@k", "context precision"],
+    "filters": {"source_type": "pdf"},
+    "is_answerable": true
+  },
+  {
+    "id": 14,
+    "question": "At what scale must monthly cost comparisons be estimated in Problem 1?",
+    "reference_answer": "Monthly cost at 100K, 1M, and 10M vectors versus a managed database.",
+    "gold_substrings": ["100K / 1M / 10M vectors"],
+    "filters": {"source_type": "pdf"},
+    "is_answerable": true
+  },
+  {
+    "id": 15,
+    "question": "What is the total point score allocated for Problem 1, and what are the scoring categories?",
+    "reference_answer": "100 points total: Correctness & ingestion (20 pts), Retrieval evaluation (20 pts), Answer evaluation (20 pts), Cost analysis (20 pts), and Engineering & clarity (20 pts).",
+    "gold_substrings": ["Correctness & ingestion", "Retrieval evaluation", "Answer evaluation", "Cost analysis", "Engineering & clarity"],
+    "filters": {"source_type": "pdf"},
+    "is_answerable": true
+  },
+  {
+    "id": 16,
+    "question": "Compare the RAM requirements of HNSW versus IVF-PQ.",
+    "reference_answer": "HNSW requires high memory overhead to hold graph links in RAM or memory-mapped files, whereas IVF-PQ reduces RAM footprint by up to 90% using product quantization.",
+    "gold_substrings": ["High memory overhead during indexing", "RAM reduction (up to 90% footprint reduction)"],
+    "filters": null,
+    "is_answerable": true
+  },
+  {
+    "id": 17,
+    "question": "How do similarity threshold filtering and explicit refusal prompting work together to avoid hallucinations?",
+    "reference_answer": "Similarity threshold filtering discards chunks with cosine similarity below threshold, and explicit refusal prompting instructs the LLM to output a standard refusal message when context is missing.",
+    "gold_substrings": ["Similarity Threshold Filtering", "Explicit Refusal Prompting"],
+    "filters": null,
+    "is_answerable": true
+  },
+  {
+    "id": 18,
+    "question": "What is the capital city of France?",
+    "reference_answer": "The available documents do not contain sufficient context to answer this question.",
+    "gold_substrings": [],
+    "filters": null,
+    "is_answerable": false
+  },
+  {
+    "id": 19,
+    "question": "Who won the FIFA World Cup in 2022?",
+    "reference_answer": "The available documents do not contain sufficient context to answer this question.",
+    "gold_substrings": [],
+    "filters": null,
+    "is_answerable": false
+  },
+  {
+    "id": 20,
+    "question": "What is the quantum computing algorithm for factoring large prime integers in polynomial time?",
+    "reference_answer": "The available documents do not contain sufficient context to answer this question.",
+    "gold_substrings": [],
+    "filters": null,
+    "is_answerable": false
+  }
+]
