@@ -81,7 +81,6 @@ uv run python evaluation/cost_analysis.py
 # 7. Start the FastAPI service
 uv run uvicorn src.api:app --reload --port 8000
 ```
-*Read the comprehensive report in [problem-1-rag/README.md](problem-1-rag/README.md).*
 
 ---
 
@@ -103,7 +102,6 @@ uv run pytest
 # 4. Run the full live benchmark suite (A/B evaluation + bias probes + adversarial suite)
 uv run python evaluation/run_all.py
 ```
-*Read the comprehensive report in [problem-2-judge/README.md](problem-2-judge/README.md).*
 
 ---
 
