@@ -170,7 +170,12 @@ if __name__ == "__main__":
     import sys
     import json
 
-    question = sys.argv[1] if len(sys.argv) > 1 else "What ANN algorithms are dominant in vector databases?"
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
+    question = sys.argv[1] if len(sys.argv) > 1 else "What did Farhan build at SmartBridge?"
     print(f"\n[QUERY] '{question}'\n" + "-" * 70)
     result = rag_service.query(question=question)
     print(f"\n[ANSWER]\n{result['answer']}")

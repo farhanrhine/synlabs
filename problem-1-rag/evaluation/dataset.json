@@ -1,138 +1,138 @@
 [
   {
     "id": 1,
-    "question": "What ANN algorithms are dominant in modern vector databases according to the architecture guide?",
-    "reference_answer": "The two dominant ANN algorithms are Hierarchical Navigable Small World (HNSW) and Inverted File with Product Quantization (IVF-PQ).",
-    "gold_substrings": ["Hierarchical Navigable Small World (HNSW)", "Inverted File with Product Quantization (IVF-PQ)"],
+    "question": "What is Mohammad Farhan Alam's primary domain of engineering expertise according to his portfolio and resume?",
+    "reference_answer": "Mohammad Farhan Alam is an Agentic AI and ML Engineer specializing in Autonomous Multi-Agent Workflows, MCP Infrastructure, Digital Twin Simulations, and Production MLOps.",
+    "gold_substrings": ["Agentic AI", "ML Engineer", "Multi-Agent"],
     "filters": {"source_type": "md"},
     "is_answerable": true
   },
   {
     "id": 2,
-    "question": "What is the query time search complexity of HNSW?",
-    "reference_answer": "HNSW has a logarithmic search complexity of O(log N).",
-    "gold_substrings": ["logarithmic search complexity O(log N)"],
+    "question": "Which university did Farhan attend for his Bachelor of Engineering in Computer Science?",
+    "reference_answer": "Farhan attended Chandigarh University in Punjab, India, pursuing a Bachelor of Engineering in Computer Science and Engineering from 2022 to 2026.",
+    "gold_substrings": ["Chandigarh University"],
     "filters": {"source_type": "md"},
     "is_answerable": true
   },
   {
     "id": 3,
-    "question": "What is the primary drawback of IVF-PQ compared to uncompressed HNSW?",
-    "reference_answer": "The primary drawback of IVF-PQ is loss of precision and reduced recall@k compared to uncompressed HNSW.",
-    "gold_substrings": ["Loss of precision and reduced recall@k"],
+    "question": "What role did Farhan hold at SmartBridge Educational Services Pvt. Ltd. and what did he build?",
+    "reference_answer": "Farhan worked as an AI Engineer Intern at SmartBridge Educational Services Pvt. Ltd. where he architected and built an AI-powered Resume Analyzer end-to-end as the sole engineer on the build.",
+    "gold_substrings": ["AI-powered Resume Analyzer", "SmartBridge Educational Services"],
     "filters": {"source_type": "md"},
     "is_answerable": true
   },
   {
     "id": 4,
-    "question": "When is dot product distance mathematically equivalent to cosine similarity?",
-    "reference_answer": "Dot product is mathematically equivalent to cosine similarity for unit-normalized embeddings.",
-    "gold_substrings": ["unit-normalized embeddings where cosine similarity is mathematically equivalent to dot product"],
+    "question": "What benchmark accuracies did Farhan achieve during his internship at Infosys Springboard 5.0 for language detection?",
+    "reference_answer": "Farhan benchmarked Logistic Regression at 78%, GRU at 90.05%, and LSTM at 91%, reaching 95%+ accuracy on distinct-script languages.",
+    "gold_substrings": ["Logistic Regression (78%)", "GRU (90.05%)", "LSTM (91%)"],
     "filters": {"source_type": "md"},
     "is_answerable": true
   },
   {
     "id": 5,
-    "question": "How much raw storage is required to store 1M 384-dimensional vectors with 16-bit float precision?",
-    "reference_answer": "Approximately 768 MB of raw storage, plus approximately 1.5 GB for HNSW graph indexes.",
-    "gold_substrings": ["768 MB of raw storage", "1.5 GB for HNSW graph indexes"],
+    "question": "What is AgentLayer and what technologies does it use?",
+    "reference_answer": "AgentLayer is a platform that turns websites into MCP tools that AI agents can call enabled by a single script tag, built with FastMCP, Python, FastAPI, E2B Sandbox, React 19, and SQLAlchemy.",
+    "gold_substrings": ["AgentLayer", "FastMCP", "E2B Sandbox"],
     "filters": {"source_type": "md"},
     "is_answerable": true
   },
   {
     "id": 6,
-    "question": "What is the standard industry default chunk size and overlap for technical corpora?",
-    "reference_answer": "The standard industry default is a sliding window chunk size of 500 characters with an overlap of 100 characters.",
-    "gold_substrings": ["sliding window chunk size of 500 characters with an overlap of 100 characters"],
-    "filters": {"source_type": "html"},
+    "question": "What ranking did the CrowdFlow AI team achieve at the AI Race Month Grandprix?",
+    "reference_answer": "CrowdFlow AI placed in the top 19 of 500+ teams at the AI Race Month Grandprix.",
+    "gold_substrings": ["top 19 of 500+ teams", "AI Race Month Grandprix"],
+    "filters": {"source_type": "md"},
     "is_answerable": true
   },
   {
     "id": 7,
-    "question": "How does the ingestion pipeline guarantee idempotency when documents are re-indexed?",
-    "reference_answer": "By computing a deterministic cryptographic hash (such as SHA-256) over document content, chunk index, and document identifier to derive a stable UUIDv5 that replaces the existing record in place without growing vector count.",
-    "gold_substrings": ["deterministic cryptographic hash (such as SHA-256)", "UUIDv5", "without growing the total vector count"],
-    "filters": {"source_type": "html"},
+    "question": "What cloud platform and CI/CD tools did Farhan use for deploying his Multi-AI Agent System?",
+    "reference_answer": "The Multi-AI Agent System was deployed to GCP Cloud Run through a Jenkins CI/CD pipeline with static code analysis.",
+    "gold_substrings": ["GCP Cloud Run", "Jenkins CI/CD"],
+    "filters": {"source_type": "md"},
     "is_answerable": true
   },
   {
     "id": 8,
-    "question": "What guardrails are employed to prevent LLM hallucinations in RAG systems?",
-    "reference_answer": "Similarity threshold filtering, explicit refusal prompting, and verifiable chunk citations.",
-    "gold_substrings": ["Similarity Threshold Filtering", "Explicit Refusal Prompting", "Verifiable Citations"],
-    "filters": {"source_type": "html"},
+    "question": "What vulnerability scanner was integrated into the Medical RAG AI Agent pipeline?",
+    "reference_answer": "Trivy container image vulnerability scanning was integrated into the Jenkins CI/CD pipeline for deployments to GCP Cloud Run.",
+    "gold_substrings": ["Trivy container image vulnerability scanning", "GCP Cloud Run"],
+    "filters": {"source_type": "md"},
     "is_answerable": true
   },
   {
     "id": 9,
-    "question": "What happens if a document chunk size is under 100 characters?",
-    "reference_answer": "Semantic context is lost if chunk size is too small.",
-    "gold_substrings": ["under 100 characters), semantic context is lost"],
+    "question": "What 3D graphics library and interactive components are featured on Farhan's portfolio website?",
+    "reference_answer": "Farhan's portfolio features Three.js 3D animations including a Holo-Deck Terminal with core canvas, topology simulations, and interactive 3D card tilt physics.",
+    "gold_substrings": ["Three.js", "Holo-Deck", "3D Card Tilt"],
     "filters": {"source_type": "html"},
     "is_answerable": true
   },
   {
     "id": 10,
-    "question": "What happens if a document chunk size is over 2000 characters?",
-    "reference_answer": "Irrelevant noise dilutes the retrieved embedding vector if chunk size is too large.",
-    "gold_substrings": ["over 2000 characters), irrelevant noise dilutes"],
+    "question": "What design aesthetic and color themes are implemented in the portfolio index.html?",
+    "reference_answer": "The portfolio implements a Neo-Brutalist design system with multi-theme tokens including Neo-Yellow and Cyber Dark Neo themes.",
+    "gold_substrings": ["NEO-BRUTALIST", "neo-yellow", "neo-dark"],
     "filters": {"source_type": "html"},
     "is_answerable": true
   },
   {
     "id": 11,
-    "question": "What is the objective of Problem 1 in the take-home assignment?",
-    "reference_answer": "A QA service over a document corpus, backed by a low-cost vector store, with honest evaluation of retrieval quality, answer quality, latency, and cost.",
-    "gold_substrings": ["QA service over a document corpus, backed by a low-cost vector store"],
+    "question": "For what fiscal year was NVIDIA's Form 10-K filed, and what is NVIDIA's state of incorporation?",
+    "reference_answer": "NVIDIA Corporation's Form 10-K was filed for the fiscal year ended January 26, 2025, and NVIDIA is incorporated in Delaware.",
+    "gold_substrings": ["fiscal year ended January 26, 2025", "Delaware"],
     "filters": {"source_type": "pdf"},
     "is_answerable": true
   },
   {
     "id": 12,
-    "question": "Which vector stores are listed as choices in Problem 1 of the assignment?",
-    "reference_answer": "pgvector, Qdrant (self-hosted/embedded), ChromaDB, LanceDB, FAISS, and sqlite-vec.",
-    "gold_substrings": ["pgvector", "Qdrant", "ChromaDB", "LanceDB", "FAISS", "sqlite-vec"],
+    "question": "What is NVIDIA's IRS Employer Identification Number as reported in its Form 10-K?",
+    "reference_answer": "NVIDIA Corporation's IRS Employer Identification Number is 94-3177549.",
+    "gold_substrings": ["94-3177549"],
     "filters": {"source_type": "pdf"},
     "is_answerable": true
   },
   {
     "id": 13,
-    "question": "What retrieval metrics must be evaluated in Problem 1?",
-    "reference_answer": "Recall@k / Hit Rate, MRR, nDCG@k, and context precision.",
-    "gold_substrings": ["Recall@k / Hit Rate", "MRR", "nDCG@k", "context precision"],
+    "question": "What is NVIDIA's Commission file number on its Form 10-K?",
+    "reference_answer": "NVIDIA Corporation's Commission file number is 0-23985.",
+    "gold_substrings": ["0-23985"],
     "filters": {"source_type": "pdf"},
     "is_answerable": true
   },
   {
     "id": 14,
-    "question": "At what scale must monthly cost comparisons be estimated in Problem 1?",
-    "reference_answer": "Monthly cost at 100K, 1M, and 10M vectors versus a managed database.",
-    "gold_substrings": ["100K / 1M / 10M vectors"],
+    "question": "What are the two reportable segments through which NVIDIA conducts its business?",
+    "reference_answer": "NVIDIA conducts its business through two reportable segments: Compute & Networking and Graphics.",
+    "gold_substrings": ["Compute & Networking", "Graphics"],
     "filters": {"source_type": "pdf"},
     "is_answerable": true
   },
   {
     "id": 15,
-    "question": "What is the total point score allocated for Problem 1, and what are the scoring categories?",
-    "reference_answer": "100 points total: Correctness & ingestion (20 pts), Retrieval evaluation (20 pts), Answer evaluation (20 pts), Cost analysis (20 pts), and Engineering & clarity (20 pts).",
-    "gold_substrings": ["Correctness & ingestion", "Retrieval evaluation", "Answer evaluation", "Cost analysis", "Engineering & clarity"],
+    "question": "What are NVIDIA's accelerated computing architectures mentioned in the report?",
+    "reference_answer": "NVIDIA develops accelerated computing architectures including Hopper and Blackwell, featuring Tensor Core GPUs, NVLink, and InfiniBand networking.",
+    "gold_substrings": ["Hopper", "Blackwell", "Tensor Core"],
     "filters": {"source_type": "pdf"},
     "is_answerable": true
   },
   {
     "id": 16,
-    "question": "Compare the RAM requirements of HNSW versus IVF-PQ.",
-    "reference_answer": "HNSW requires high memory overhead to hold graph links in RAM or memory-mapped files, whereas IVF-PQ reduces RAM footprint by up to 90% using product quantization.",
-    "gold_substrings": ["High memory overhead during indexing", "RAM reduction (up to 90% footprint reduction)"],
-    "filters": null,
+    "question": "Summarize Farhan's certifications in artificial intelligence and agentic workflows.",
+    "reference_answer": "Farhan holds certifications in Deep Agents from LangChain Academy, LLMOps and AIOps Bootcamp from Udemy, and Retrieval-Augmented Generation from DeepLearning.AI on Coursera.",
+    "gold_substrings": ["Deep Agents", "LLMOps and AIOps Bootcamp", "Retrieval-Augmented Generation"],
+    "filters": {"source_type": "md"},
     "is_answerable": true
   },
   {
     "id": 17,
-    "question": "How do similarity threshold filtering and explicit refusal prompting work together to avoid hallucinations?",
-    "reference_answer": "Similarity threshold filtering discards chunks with cosine similarity below threshold, and explicit refusal prompting instructs the LLM to output a standard refusal message when context is missing.",
-    "gold_substrings": ["Similarity Threshold Filtering", "Explicit Refusal Prompting"],
-    "filters": null,
+    "question": "Compare Farhan's use of vector stores: what vector store was used in his Medical RAG Agent?",
+    "reference_answer": "Farhan used FAISS vector retrieval in his Medical RAG AI Agent project.",
+    "gold_substrings": ["FAISS"],
+    "filters": {"source_type": "md"},
     "is_answerable": true
   },
   {
@@ -140,7 +140,6 @@
     "question": "What is the capital city of France?",
     "reference_answer": "The available documents do not contain sufficient context to answer this question.",
     "gold_substrings": [],
-    "filters": null,
     "is_answerable": false
   },
   {
@@ -148,15 +147,13 @@
     "question": "Who won the FIFA World Cup in 2022?",
     "reference_answer": "The available documents do not contain sufficient context to answer this question.",
     "gold_substrings": [],
-    "filters": null,
     "is_answerable": false
   },
   {
     "id": 20,
-    "question": "What is the quantum computing algorithm for factoring large prime integers in polynomial time?",
+    "question": "What is the quantum computing algorithm for factoring large primes in polynomial time?",
     "reference_answer": "The available documents do not contain sufficient context to answer this question.",
     "gold_substrings": [],
-    "filters": null,
     "is_answerable": false
   }
 ]

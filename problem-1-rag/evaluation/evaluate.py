@@ -13,6 +13,11 @@ if str(PROJECT_ROOT) not in sys.path:
 from typing import List, Dict, Any, Optional
 import numpy as np
 
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
 from src.config import settings
 from src.rag import rag_service, INSUFFICIENT_CONTEXT_MESSAGE
 

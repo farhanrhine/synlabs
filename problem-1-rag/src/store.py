@@ -51,15 +51,17 @@ class QdrantStore:
                 )
             )
 
-    def upsert_points(self, points: List[PointStruct]) -> int:
-        """Idempotently insert or update points in Qdrant."""
+    def upsert_points(self, points: List[PointStruct], batch_size: int = 250) -> int:
+        """Idempotently insert or update points in Qdrant in batches."""
         if not points:
             return 0
-        self.client.upsert(
-            collection_name=self.collection_name,
-            points=points,
-            wait=True
-        )
+        for i in range(0, len(points), batch_size):
+            batch = points[i:i + batch_size]
+            self.client.upsert(
+                collection_name=self.collection_name,
+                points=batch,
+                wait=True
+            )
         return len(points)
 
     def search(
