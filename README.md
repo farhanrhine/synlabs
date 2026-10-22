@@ -52,6 +52,10 @@ Both projects use [`uv`](https://docs.astral.sh/uv/) for deterministic, lightnin
 - `uv` installed (`pip install uv` or `curl -LsSf https://astral.sh/uv/install.sh | sh`)
 - A [Groq API Key](https://console.groq.com/)
 
+> [!IMPORTANT]
+> **Workspace Navigation:** Each problem is self-contained with its own `pyproject.toml` and virtual environment.
+> Always `cd problem-1-rag` or `cd problem-2-judge` before running `uv sync`, `uv run pytest`, or project scripts. Do not run `uv sync` from the root directory.
+
 ---
 
 ### Verifying Problem 1: Cost-Efficient RAG
