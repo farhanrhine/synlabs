@@ -204,6 +204,18 @@ Cost model generated via `uv run python evaluation/cost_analysis.py`:
 * Queries with no passing context bypass the LLM and return the canonical refusal message:
   > *"The available documents do not contain sufficient context to answer this question."*
 
+### 6.6 When Would You Switch Back to a Managed Database?
+We would transition from embedded Qdrant back to a managed cloud cluster under three explicit production conditions:
+1. **Horizontal Scale (> 25M–50M vectors):** When index size exceeds single-node physical RAM/NVMe capacity, requiring distributed multi-node sharding and cross-node replication.
+2. **High Availability & Zero Downtime:** When customer-facing SLAs demand multi-availability-zone failover, automated point-in-time backups, and rolling zero-downtime upgrades without DevOps intervention.
+3. **Decoupled Ingestion & Query Compute:** When write-heavy continuous data ingestion spikes CPU/memory and must be isolated from latency-sensitive user query traffic.
+
+### 6.7 Was Retrieval or Generation the Weak Link?
+In our empirical evaluation, **Retrieval was the more sensitive link**:
+* **Retrieval Challenges:** Extracting and embedding unstructured data across heterogeneous formats (specifically dense financial tables in `NVIDIA.pdf`) required careful chunk boundary normalization. Without sliding-window overlap, table row numbers became decoupled from column headers, causing retrieval hit rates on financial metrics to drop. Once overlap (100 chars) and similarity thresholding (0.55) were calibrated, retrieval reached Recall@k of 0.95 and Hit Rate of 1.00.
+* **Generation Robustness:** Groq's `openai/gpt-oss-120b` demonstrated flawless adherence to prompt constraints. With temperature set to 0.0, it achieved **100.0% Faithfulness**, strictly cited retrieved chunk IDs (`[Chunk <id>]`), and refused to hallucinate on 100% of out-of-corpus queries.
+* **Conclusion:** Generation is deterministic and robust once grounded; retrieval precision across complex real-world documents is the true engineering lever.
+
 ---
 
 ## 7. Verification Evidence & Terminal Logs

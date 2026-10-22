@@ -207,6 +207,11 @@ Evaluated across **15 diverse test cases from Problem 1 real dataset** (Farhan's
 1. **Automated Release Pass:** If Config A achieves $\ge 65\%$ win rate against the production baseline with a position-swap flip rate $< 15\%$ and zero critical regressions on the adversarial probe suite, the pipeline automatically approves release.
 2. **Escalate to Human-in-the-Loop:** If the win margin is under $5\%$ (statistical tie), or if any test case shows a flip where correctness score differs by $> 1.0$ across permutations, release is held for human review.
 
+### 8.4 How Biased Was the Judge Before vs After Mitigation?
+* **Position Order Bias:** In the raw evaluation, the judge exhibited a **33.3% flip rate** (swapping presenting candidate A first vs B first changed the outcome in 5 of 15 cases purely due to layout bias). The dual-permutation harness arbitrated disagreements, driving the post-mitigation flip rate to **0.0% (100% neutralized)**.
+* **Verbosity & Fluff:** Under standard prompting, judges tend to reward long answers. With our explicit `ConcisenessAndSafety` penalty and prompt guardrails, a concise factual answer ($5.00$) soundly beat an 80-word padded fluff answer ($4.40$) by **$+0.60$ points**.
+* **Sycophancy:** Polite flattery failed to deceive the judge. When presented with an assertively polite answer containing false facts, the judge awarded **1.0 / 5.0 for Correctness**, proving the judge cannot be tricked by conversational style when grounded against reference facts.
+
 ---
 
 ## 9. Verification Evidence & Auditable Logs
