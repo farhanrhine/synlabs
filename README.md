@@ -38,27 +38,46 @@ synlabs/
 
 ### Problem 1: Cost-Efficient RAG Architecture Flowchart
 ```mermaid
-flowchart TD
-    subgraph Ingestion["Ingestion & Indexing Pipeline"]
-        A["1. Multi-Format Raw Corpus<br/>(resume.md, index.html, NVIDIA.pdf)"] --> B["2. Token-Aware Chunking<br/>(500 chars, 100 overlap, UUIDv5)"]
-        B --> C["3. Local ONNX Embedding<br/>(BAAI/bge-small-en-v1.5, 384-dim, $0 cost)"]
-        C --> D[("4. Embedded Qdrant Store<br/>(data/qdrant - 1,286 vectors)")]
+flowchart LR
+    subgraph Ingestion["1. Ingestion Pipeline"]
+        direction TB
+        A["Raw Corpus<br/>(resume.md, index.html, NVIDIA.pdf)"]
+        B["Token-Aware Chunking<br/>(500 chars, 100 overlap)"]
+        C["FastEmbed ONNX<br/>(bge-small-en-v1.5, 384-dim)"]
+        D[("Qdrant Store<br/>(1,286 vectors)")]
+        A --> B --> C --> D
     end
 
-    subgraph QueryPipeline["Online Query & Generation Pipeline"]
-        Q["User Query / FastAPI Endpoint<br/>(POST /query)"] --> R["5. Top-K Retrieval & Metadata Filtering<br/>(Query embedded via FastEmbed, k=5)"]
-        D -.->|"HNSW Search & Payload Read"| R
-        R --> Dec{"Score >= 0.55 Threshold?<br/>Relevance Verification"}
-        
-        Dec -->|"YES (Relevant Context)"| G["6. Grounded LLM Generation<br/>(Groq openai/gpt-oss-120b, temp=0.0)<br/>• Mandatory Inline Citations [Chunk ID]<br/>• 100.0% Faithfulness"]
-        Dec -->|"NO (Below Threshold)"| F["7. Strict Refusal Branch<br/>(Short-circuit LLM)<br/>• Fallback: 'Insufficient context'<br/>• Zero Hallucination Guaranteed"]
-        
-        G --> Out["8. Structured Response JSON<br/>(Answer, Citations, Latency Telemetry)"]
+    subgraph Query["2. Online Query & Retrieval"]
+        direction TB
+        Q["User Query<br/>(POST /query)"]
+        R["Top-K Search & Filter<br/>(Cosine, k=5)"]
+        Q --> R
+    end
+
+    subgraph Decision["3. Relevance Check"]
+        direction TB
+        Dec{"Score >= 0.55?"}
+    end
+
+    subgraph Generation["4. Output Routing"]
+        direction TB
+        G["Grounded Answer<br/>(Groq gpt-oss-120b)<br/>• Mandatory Citations"]
+        F["Strict Refusal Branch<br/>• Insufficient Context<br/>• Zero Hallucination"]
+        Out["Final JSON Response<br/>(Answer, Citations, Latency)"]
+        G --> Out
         F --> Out
     end
 
+    D -.->|"HNSW Search"| R
+    R --> Dec
+    Dec -->|"YES"| G
+    Dec -->|"NO"| F
+
     style Ingestion fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#fff
-    style QueryPipeline fill:#1e293b,stroke:#8b5cf6,stroke-width:2px,color:#fff
+    style Query fill:#1e293b,stroke:#8b5cf6,stroke-width:2px,color:#fff
+    style Decision fill:#1e293b,stroke:#f59e0b,stroke-width:2px,color:#fff
+    style Generation fill:#1e293b,stroke:#10b981,stroke-width:2px,color:#fff
     style D fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#fff
     style Dec fill:#78350f,stroke:#f59e0b,stroke-width:2px,color:#fff
     style G fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#fff
@@ -68,52 +87,55 @@ flowchart TD
 
 ### Problem 2: LLM-as-a-Judge Evaluation Pipeline Flowchart
 ```mermaid
-flowchart TD
-    subgraph InputStage["1. Test Suite Ingestion"]
-        A["Test Suite JSONL<br/>(evaluation/suite_ab.jsonl - 15 cases)<br/>• Prompt + Ground Truth Reference<br/>• Candidate A vs Candidate B"]
+flowchart LR
+    subgraph Ingestion["1. Suite Input"]
+        direction TB
+        A["Suite JSONL<br/>(15 real cases)<br/>• Prompt + Reference<br/>• Candidate A vs B"]
     end
 
-    subgraph BiasMitigation["2. Position-Swap Order Harness"]
+    subgraph Mitigation["2. Position-Swap"]
+        direction TB
         P1["Permutation 1: (A, B)"]
         P2["Permutation 2: (B, A)"]
     end
 
-    A --> P1
-    A --> P2
-
-    subgraph EvaluationStage["3. Multi-Criteria Rubric & Judge Inference"]
-        J["Groq LLM Judge (openai/gpt-oss-120b, temp=0.0)<br/>• Correctness (0.35) • Faithfulness (0.25)<br/>• Completeness (0.20) • Instruction-Following (0.10)<br/>• Conciseness & Safety (0.10)"]
+    subgraph Inference["3. Judge Inference"]
+        direction TB
+        J["Groq LLM Judge<br/>(gpt-oss-120b, temp=0)<br/>• Correctness (0.35)<br/>• Faithfulness (0.25)<br/>• Completeness (0.20)<br/>• Instruction (0.10)<br/>• Conciseness (0.10)"]
     end
 
-    P1 --> J
-    P2 --> J
-
-    subgraph ParsingStage["4. Defensive JSON Parser & Malformed Recovery"]
-        Parse["extract_and_repair_json()<br/>• Strip markdown code fences<br/>• Trailing comma regex repair<br/>• Pydantic v2 Schema Validation"]
+    subgraph Parsing["4. Defensive Parser"]
+        direction TB
+        Parse["extract_and_repair_json()<br/>• Strip code fences<br/>• Trailing comma repair<br/>• Pydantic v2 validation"]
     end
 
+    subgraph Arbitration["5. Bias Arbitration"]
+        direction TB
+        Dec{"Order 1 == Order 2?"}
+        Win["Confirm Winner<br/>(Flip Rate = 0.0%)"]
+        Arb["Score Delta Arbitration / Tie<br/>(Neutralized)"]
+        Dec -->|"YES"| Win
+        Dec -->|"NO"| Arb
+    end
+
+    subgraph Output["6. Reports"]
+        direction TB
+        Rep["Audit Logs (JSONL)<br/>& Report (JSON)"]
+        Win --> Rep
+        Arb --> Rep
+    end
+
+    A --> P1 & P2
+    P1 & P2 --> J
     J --> Parse
+    Parse --> Dec
 
-    subgraph ArbitrationStage["5. Bias Arbitration & Agreement Check"]
-        Dec{"Winner(Permutation 1) == Winner(Permutation 2)?"}
-        Parse --> Dec
-        
-        Dec -->|"YES (Agreement)"| Win["Confirm Clear Winner<br/>(Flip Rate = 0.0%)"]
-        Dec -->|"NO (Flip Detected)"| Arb["Score Delta Arbitration / Tie<br/>(Average criteria scores across runs)"]
-    end
-
-    subgraph ReportStage["6. Output Telemetry & Reporting"]
-        Rep["Audit Logs (artifacts/audit_logs.jsonl)<br/>& Consolidated Report (artifacts/report.json)"]
-    end
-
-    Win --> Rep
-    Arb --> Rep
-
-    style InputStage fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#fff
-    style BiasMitigation fill:#1e293b,stroke:#f59e0b,stroke-width:2px,color:#fff
-    style EvaluationStage fill:#1e293b,stroke:#8b5cf6,stroke-width:2px,color:#fff
-    style ParsingStage fill:#1e293b,stroke:#10b981,stroke-width:2px,color:#fff
-    style Dec fill:#78350f,stroke:#f59e0b,stroke-width:2px,color:#fff
+    style Ingestion fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#fff
+    style Mitigation fill:#1e293b,stroke:#f59e0b,stroke-width:2px,color:#fff
+    style Inference fill:#1e293b,stroke:#8b5cf6,stroke-width:2px,color:#fff
+    style Parsing fill:#1e293b,stroke:#10b981,stroke-width:2px,color:#fff
+    style Arbitration fill:#1e293b,stroke:#78350f,stroke-width:2px,color:#fff
+    style Output fill:#1e3a5f,stroke:#60a5fa,stroke-width:2px,color:#fff
     style Win fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#fff
     style Arb fill:#78350f,stroke:#f59e0b,stroke-width:2px,color:#fff
     style Rep fill:#1e3a5f,stroke:#60a5fa,stroke-width:2px,color:#fff
