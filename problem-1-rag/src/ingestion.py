@@ -174,3 +174,45 @@ class IngestionPipeline:
 
 
 ingestion_pipeline = IngestionPipeline()
+
+
+if __name__ == "__main__":
+    import sys
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
+    print("\n" + "=" * 70)
+    print("      SYNLABS RAG: IDEMPOTENT CORPUS INGESTION PIPELINE")
+    print("=" * 70)
+
+    try:
+        initial_count = vector_store.count()
+        print(f">> Initial points in Qdrant store: {initial_count}")
+        print(f">> Scanning corpus directory     : {settings.raw_data_path}")
+
+        result = ingestion_pipeline.ingest_directory()
+
+        final_count = result["total_points_in_store"]
+        new_points = final_count - initial_count
+
+        print(f">> Files successfully processed  : {result['files_processed']}")
+        print(f">> Total chunks created          : {result['chunks_processed']}")
+        print(f">> New vectors added             : {new_points}")
+        status_msg = "(UNCHANGED - IDEMPOTENT)" if new_points == 0 else "(NEW EMBEDDINGS STORED)"
+        print(f">> Total points in vector store  : {final_count} {status_msg}")
+        print("=" * 70 + "\n")
+    except RuntimeError as re:
+        if "already accessed" in str(re):
+            print("\n>> [NOTICE]: The Qdrant database file is currently LOCKED by your running")
+            print(">>           'uvicorn src.api:app' dev server in your other terminal.")
+            print(">> ")
+            print(">> TO FIX:")
+            print(">> Option A: Press Ctrl+C in your uvicorn terminal to stop the server,")
+            print(">>           then re-run: uv run python -m src.ingestion")
+            print(">> Option B: Trigger ingestion via the running server using:")
+            print(">>           curl.exe -X POST http://127.0.0.1:8000/ingest\n")
+            print("=" * 70 + "\n")
+        else:
+            raise

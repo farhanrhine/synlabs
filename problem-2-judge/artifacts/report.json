@@ -2,63 +2,63 @@
   "summary": {
     "total_test_cases": 15,
     "judge_model": "openai/gpt-oss-120b",
-    "config_a_model": "openai/gpt-oss-120b",
+    "config_a_model": "openai/gpt-oss-20b",
     "config_b_model": "qwen/qwen3.8-27b",
     "declared_winner": "Config A (openai/gpt-oss-120b)",
-    "winner_rationale": "Config A won 8/15 cases (53.3%), outperforming Config B by a margin of 8 wins with higher mean score (4.99 vs 4.66)."
+    "winner_rationale": "Config A won 9/15 cases (60.0%), outperforming Config B by a margin of 9 wins with higher mean score (4.98 vs 4.68)."
   },
   "pairwise_ab_results": {
-    "config_a_wins": 8,
-    "config_a_win_rate": "53.3%",
+    "config_a_wins": 9,
+    "config_a_win_rate": "60.0%",
     "config_b_wins": 0,
     "config_b_win_rate": "0.0%",
-    "ties": 7,
-    "tie_rate": "46.7%",
-    "config_a_mean_score": 4.99,
-    "config_b_mean_score": 4.66
+    "ties": 6,
+    "tie_rate": "40.0%",
+    "config_a_mean_score": 4.98,
+    "config_b_mean_score": 4.68
   },
   "bias_mitigation_metrics": {
-    "position_swap_flip_rate_before": "33.3%",
+    "position_swap_flip_rate_before": "13.3%",
     "position_swap_flip_rate_after": "0.0%",
-    "disagreements_resolved": 5,
+    "disagreements_resolved": 2,
     "probes": {
       "verbosity_probe": {
         "probe": "Verbosity / Length Probe (Real NVIDIA 10-K Data)",
         "concise_score": 5.0,
-        "padded_fluff_score": 4.4,
+        "padded_fluff_score": 4.25,
         "winner": "Config A",
         "is_fluff_penalized": true,
-        "score_delta": 0.6,
-        "justification": "Candidate A delivers a perfectly correct, fully faithful, complete, well\u2011formatted, and maximally concise answer, achieving the highest possible weighted score (5.0) versus Candidate B's lower weighted score due to unsupported details and verbosity.\n[Order Swap Verification]: Position agreement confirmed (Config A)."
+        "score_delta": 0.75,
+        "justification": "Candidate A delivers a perfectly correct, fully faithful, complete, and concise answer, achieving the maximum weighted score (5.0). Candidate B, while correct on the EIN, adds unverified details and verbose language, lowering its weighted score (~4.08). Therefore Candidate A is the clear winner.\n[Order Swap Verification]: Position agreement confirmed (Config A)."
       },
       "sycophancy_probe": {
         "probe": "Sycophancy / Confident-Wrong Probe",
-        "overall_score": 1.7,
+        "overall_score": 1.4,
         "correctness_score": 1.0,
         "fooled_by_polite_tone": false,
         "verdict_passed": false,
-        "justification": "The candidate output fails on factual accuracy and grounding, providing a completely incorrect ranking and inventing details. While it technically addresses the question, the answer is wrong and overly embellished, leading to low scores for correctness, faithfulness, and conciseness. Minor compliance with format yields moderate scores for completeness and instruction following."
+        "justification": "The candidate output is factually inaccurate and ungrounded, violating correctness and faithfulness criteria, and includes excessive fluff, resulting in low scores for those dimensions. It meets instruction-following expectations but fails on completeness and conciseness."
       },
       "adversarial_probe_outcomes": [
         {
           "id": "adv_01",
           "winner": "Config A",
-          "score_a_terse": 5.0,
-          "score_b_fluff": 1.15,
+          "score_a_terse": 4.92,
+          "score_b_fluff": 1.2,
           "is_flipped": false
         },
         {
           "id": "adv_02",
           "winner": "Config A",
           "score_a_terse": 5.0,
-          "score_b_fluff": 1.65,
+          "score_b_fluff": 2.08,
           "is_flipped": false
         },
         {
           "id": "adv_03",
           "winner": "Config A",
-          "score_a_terse": 4.2,
-          "score_b_fluff": 2.58,
+          "score_a_terse": 4.4,
+          "score_b_fluff": 3.15,
           "is_flipped": false
         }
       ]
@@ -83,240 +83,157 @@
     }
   },
   "telemetry": {
-    "p50_latency_ms": 26617.2,
-    "p95_latency_ms": 33676.59,
-    "total_tokens_consumed": 67890,
+    "p50_latency_ms": 29797.45,
+    "p95_latency_ms": 37645.14,
+    "total_tokens_consumed": 65018,
     "prompt_tokens": 32128,
-    "completion_tokens": 35762,
+    "completion_tokens": 32890,
     "total_judge_api_calls": 30
   },
   "verdicts": [
     {
       "test_id": "ab_01",
-      "model_a_name": "openai/gpt-oss-120b",
+      "model_a_name": "openai/gpt-oss-20b",
       "model_b_name": "qwen/qwen3.8-27b",
       "model_a_scores": [
         {
           "criterion": "Correctness",
           "score": 5.0,
           "weight": 0.35,
-          "rationale": "The answer exactly matches the reference facts, naming Agentic AI and ML Engineering and all four specializations."
+          "rationale": "The answer exactly matches the reference facts, stating his primary domain as Agentic AI and ML Engineering and listing all listed specializations."
         },
         {
           "criterion": "Faithfulness",
           "score": 5.0,
           "weight": 0.25,
-          "rationale": "Every claim is directly supported by the provided reference; no unsupported information is added."
+          "rationale": "Every claim is directly supported by the provided reference; no unsupported information is introduced."
         },
         {
           "criterion": "Completeness",
           "score": 5.0,
           "weight": 0.2,
-          "rationale": "All required components (Agentic AI/ML, Autonomous Multi\u2011Agent Workflows, MCP Infrastructure, Digital Twin Simulations, Production MLOps) are included."
+          "rationale": "The response covers the primary domain and all four areas of specialization, fully answering the prompt."
         },
         {
           "criterion": "InstructionFollowing",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "The response answers the question directly and follows the simple format requested."
+          "rationale": "The answer adheres to the implicit instruction of providing a clear, direct response without violating any format constraints."
         },
         {
           "criterion": "ConcisenessAndSafety",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "The answer is brief, clear, and contains no filler or unsafe content."
+          "rationale": "The statement is succinct, free of filler, and contains no unsafe content."
         }
       ],
       "model_b_scores": [
         {
           "criterion": "Correctness",
-          "score": 3.0,
+          "score": 4.0,
           "weight": 0.35,
-          "rationale": "The answer correctly identifies AI/ML engineering and multi\u2011agent work, but omits key terms like Agentic AI, MCP Infrastructure, and Digital Twin Simulations."
+          "rationale": "The answer correctly identifies him as an AI/ML engineer working on multi\u2011agent systems and MLOps, but omits the specific Agentic AI focus and other specialties."
         },
         {
           "criterion": "Faithfulness",
-          "score": 4.0,
+          "score": 5.0,
           "weight": 0.25,
-          "rationale": "All stated facts are supported by the reference, though the answer is less detailed."
+          "rationale": "All mentioned points are supported by the reference; no hallucinated details are added."
         },
         {
           "criterion": "Completeness",
-          "score": 2.5,
+          "score": 3.0,
           "weight": 0.2,
-          "rationale": "It leaves out several major specializations, providing only a partial picture of the primary domain."
+          "rationale": "It leaves out key aspects of his expertise (Agentic AI, MCP Infrastructure, Digital Twin Simulations), providing only a partial picture."
         },
         {
           "criterion": "InstructionFollowing",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "The response follows the instruction to answer the question in a single sentence."
+          "rationale": "The response follows the simple request without format violations."
         },
         {
           "criterion": "ConcisenessAndSafety",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "The answer is succinct and contains no unsafe or extraneous content."
+          "rationale": "The answer is brief, clear, and safe."
         }
       ],
       "model_a_overall": 4.97,
-      "model_b_overall": 3.83,
+      "model_b_overall": 4.42,
       "order_presented": "A_first",
       "raw_winner": "Config A",
       "swapped_winner": "Config A",
       "final_winner": "Config A",
       "is_flipped": false,
-      "justification": "Candidate A provides a fully accurate, faithful, and complete description of Mohammad Farhan Alam's primary engineering domain, matching all reference details, whereas Candidate B omits several key specializations, resulting in lower correctness and completeness scores. The weighted total gives Candidate A a perfect score versus Candidate B's substantially lower score.\n[Order Swap Verification]: Position agreement confirmed (Config A).",
-      "latency_ms": 12644.99,
+      "justification": "Candidate A scores perfectly on all criteria, yielding a weighted total of 5.0 versus Candidate B's 4.25. A\u2019s answer is fully correct, faithful, complete, follows instructions, and is concise, making it the clear winner.\n[Order Swap Verification]: Position agreement confirmed (Config A).",
+      "latency_ms": 10878.48,
       "token_usage": {
         "prompt_tokens": 2198,
-        "completion_tokens": 3086,
-        "total_tokens": 5284
+        "completion_tokens": 2718,
+        "total_tokens": 4916
       }
     },
     {
       "test_id": "ab_02",
-      "model_a_name": "openai/gpt-oss-120b",
+      "model_a_name": "openai/gpt-oss-20b",
       "model_b_name": "qwen/qwen3.8-27b",
       "model_a_scores": [
         {
           "criterion": "Correctness",
           "score": 5.0,
           "weight": 0.35,
-          "rationale": "All facts (university, location, degree name, field, years) exactly match the reference."
+          "rationale": "All facts (university, location, degree name, field, years) match the reference exactly."
         },
         {
           "criterion": "Faithfulness",
           "score": 5.0,
           "weight": 0.25,
-          "rationale": "Every statement is directly supported by the provided reference; no extra or inferred information."
+          "rationale": "Every statement is directly supported by the given reference; no extrapolation."
         },
         {
           "criterion": "Completeness",
           "score": 5.0,
           "weight": 0.2,
-          "rationale": "Answers the full query: university name, location, degree, field, and the 2022\u20112026 timeframe."
+          "rationale": "Provides university name, location, full degree title, field, and the exact years requested."
         },
         {
           "criterion": "InstructionFollowing",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "Provides a single concise sentence as requested; no formatting violations."
+          "rationale": "Answers the question directly without violating any implicit or explicit instruction."
         },
         {
           "criterion": "ConcisenessAndSafety",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "Clear, direct, no filler or unsafe content."
+          "rationale": "Clear, succinct sentence with no filler or unsafe content."
         }
       ],
       "model_b_scores": [
         {
           "criterion": "Correctness",
-          "score": 4.0,
+          "score": 4.5,
           "weight": 0.35,
-          "rationale": "University and years are correct, but the degree type and location are omitted; no factual errors present."
-        },
-        {
-          "criterion": "Faithfulness",
-          "score": 4.0,
-          "weight": 0.25,
-          "rationale": "All mentioned details are supported, but the answer omits location and specific degree, which are not hallucinated but left out."
-        },
-        {
-          "criterion": "Completeness",
-          "score": 3.0,
-          "weight": 0.2,
-          "rationale": "Fails to mention the degree (Bachelor of Engineering) and the university's location (Punjab, India), thus not fully answering the prompt."
-        },
-        {
-          "criterion": "InstructionFollowing",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Meets format expectations; concise single sentence."
-        },
-        {
-          "criterion": "ConcisenessAndSafety",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Very brief and safe, no unnecessary padding."
-        }
-      ],
-      "model_a_overall": 4.97,
-      "model_b_overall": 4.2,
-      "order_presented": "A_first",
-      "raw_winner": "Config A",
-      "swapped_winner": "Config A",
-      "final_winner": "Config A",
-      "is_flipped": false,
-      "justification": "Candidate A provides a fully accurate, faithful, and complete answer covering all required details, while Candidate B omits key information (degree type and location). Both follow instructions and are concise, but the completeness and overall factual coverage give Candidate A the higher weighted score.\n[Order Swap Verification]: Position agreement confirmed (Config A).",
-      "latency_ms": 10140.4,
-      "token_usage": {
-        "prompt_tokens": 2150,
-        "completion_tokens": 2301,
-        "total_tokens": 4451
-      }
-    },
-    {
-      "test_id": "ab_03",
-      "model_a_name": "openai/gpt-oss-120b",
-      "model_b_name": "qwen/qwen3.8-27b",
-      "model_a_scores": [
-        {
-          "criterion": "Correctness",
-          "score": 5.0,
-          "weight": 0.35,
-          "rationale": "Accurately states role and exact project as described in reference."
-        },
-        {
-          "criterion": "Faithfulness",
-          "score": 5.0,
-          "weight": 0.25,
-          "rationale": "All claims are directly supported by the reference; no extra information."
-        },
-        {
-          "criterion": "Completeness",
-          "score": 5.0,
-          "weight": 0.2,
-          "rationale": "Answers both asked components: role and what he built."
-        },
-        {
-          "criterion": "InstructionFollowing",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Meets the simple answer requirement; no format violations."
-        },
-        {
-          "criterion": "ConcisenessAndSafety",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Clear, succinct statement with no filler or safety concerns."
-        }
-      ],
-      "model_b_scores": [
-        {
-          "criterion": "Correctness",
-          "score": 4.0,
-          "weight": 0.35,
-          "rationale": "Correct role and project but omits the \"AI-powered\" qualifier."
+          "rationale": "University and years are correct; omission of degree type does not introduce error."
         },
         {
           "criterion": "Faithfulness",
           "score": 4.5,
           "weight": 0.25,
-          "rationale": "Claims are supported; omission of detail does not introduce inaccuracy."
+          "rationale": "Statement is grounded in the reference, though it leaves out some details."
         },
         {
           "criterion": "Completeness",
-          "score": 4.5,
+          "score": 3.5,
           "weight": 0.2,
-          "rationale": "Provides both role and project, though with less specificity."
+          "rationale": "Missing the specific degree name (Bachelor of Engineering) and location, so not fully complete."
         },
         {
           "criterion": "InstructionFollowing",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "Fulfills answer requirement without format errors."
+          "rationale": "Directly answers the query without breaking any format or tone rules."
         },
         {
           "criterion": "ConcisenessAndSafety",
@@ -326,297 +243,48 @@
         }
       ],
       "model_a_overall": 4.97,
-      "model_b_overall": 4.66,
+      "model_b_overall": 4.37,
       "order_presented": "A_first",
       "raw_winner": "Config A",
       "swapped_winner": "Config A",
       "final_winner": "Config A",
       "is_flipped": false,
-      "justification": "Candidate A perfectly matches the reference in all dimensions, earning full marks across criteria, resulting in a weighted score of 5.0 versus Candidate B's 4.425.\n[Order Swap Verification]: Position agreement confirmed (Config A).",
-      "latency_ms": 30949.82,
+      "justification": "Candidate A scores perfectly on all criteria, delivering a fully accurate, faithful, and complete answer. Candidate B, while correct and safe, omits key details (degree title and location), lowering its completeness and overall weighted score.\n[Order Swap Verification]: Position agreement confirmed (Config A).",
+      "latency_ms": 9936.07,
       "token_usage": {
-        "prompt_tokens": 2192,
-        "completion_tokens": 2770,
-        "total_tokens": 4962
+        "prompt_tokens": 2150,
+        "completion_tokens": 2154,
+        "total_tokens": 4304
       }
     },
     {
-      "test_id": "ab_04",
-      "model_a_name": "openai/gpt-oss-120b",
+      "test_id": "ab_03",
+      "model_a_name": "openai/gpt-oss-20b",
       "model_b_name": "qwen/qwen3.8-27b",
       "model_a_scores": [
         {
           "criterion": "Correctness",
           "score": 5.0,
           "weight": 0.35,
-          "rationale": "All three benchmark accuracies and the >95% distinct\u2011script result exactly match the reference facts."
+          "rationale": "Exactly matches reference: role as AI Engineer Intern and built an AI\u2011powered Resume Analyzer end\u2011to\u2011end."
         },
         {
           "criterion": "Faithfulness",
           "score": 5.0,
           "weight": 0.25,
-          "rationale": "Every statement is directly supported by the given facts; no unsupported claims."
+          "rationale": "All statements are directly supported by the reference; no extra or inferred information."
         },
         {
           "criterion": "Completeness",
           "score": 5.0,
           "weight": 0.2,
-          "rationale": "Includes the three model accuracies and the additional >95% accuracy on distinct\u2011script languages, covering the full request."
+          "rationale": "Answers both parts of the question: the role and the specific system he built."
         },
         {
           "criterion": "InstructionFollowing",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "Provides a concise answer in the expected sentence format."
-        },
-        {
-          "criterion": "ConcisenessAndSafety",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Brief, clear, and contains no unsafe or filler content."
-        }
-      ],
-      "model_b_scores": [
-        {
-          "criterion": "Correctness",
-          "score": 5.0,
-          "weight": 0.35,
-          "rationale": "Reports the three model accuracies accurately."
-        },
-        {
-          "criterion": "Faithfulness",
-          "score": 5.0,
-          "weight": 0.25,
-          "rationale": "All reported numbers are grounded in the reference; no extraneous claims."
-        },
-        {
-          "criterion": "Completeness",
-          "score": 4.0,
-          "weight": 0.2,
-          "rationale": "Omits the >95% accuracy on distinct\u2011script languages, leaving the answer partially incomplete."
-        },
-        {
-          "criterion": "InstructionFollowing",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Delivers a concise answer consistent with the prompt."
-        },
-        {
-          "criterion": "ConcisenessAndSafety",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Very brief, clear, and safe."
-        }
-      ],
-      "model_a_overall": 5.0,
-      "model_b_overall": 4.75,
-      "order_presented": "A_first",
-      "raw_winner": "Config A",
-      "swapped_winner": "Config A",
-      "final_winner": "Config A",
-      "is_flipped": false,
-      "justification": "Candidate A matches all reference facts, includes the additional >95% distinct\u2011script accuracy, and therefore scores higher on completeness while maintaining perfect scores on all other criteria.\n[Order Swap Verification]: Position agreement confirmed (Config A).",
-      "latency_ms": 30592.6,
-      "token_usage": {
-        "prompt_tokens": 2242,
-        "completion_tokens": 2630,
-        "total_tokens": 4872
-      }
-    },
-    {
-      "test_id": "ab_05",
-      "model_a_name": "openai/gpt-oss-120b",
-      "model_b_name": "qwen/qwen3.8-27b",
-      "model_a_scores": [
-        {
-          "criterion": "Correctness",
-          "score": 5.0,
-          "weight": 0.35,
-          "rationale": "All statements match the reference facts exactly; no factual errors."
-        },
-        {
-          "criterion": "Faithfulness",
-          "score": 5.0,
-          "weight": 0.25,
-          "rationale": "Every claim is directly supported by the provided facts; no hallucinations."
-        },
-        {
-          "criterion": "Completeness",
-          "score": 5.0,
-          "weight": 0.2,
-          "rationale": "Answers both what AgentLayer is and lists every technology mentioned in the reference."
-        },
-        {
-          "criterion": "InstructionFollowing",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Provides a clear, direct answer to the question without extraneous formatting."
-        },
-        {
-          "criterion": "ConcisenessAndSafety",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Brief, precise, and contains no unsafe or unnecessary content."
-        }
-      ],
-      "model_b_scores": [
-        {
-          "criterion": "Correctness",
-          "score": 4.0,
-          "weight": 0.35,
-          "rationale": "All listed technologies are correct, but omits SQLAlchemy and the \"Sandbox\" qualifier for E2B."
-        },
-        {
-          "criterion": "Faithfulness",
-          "score": 4.0,
-          "weight": 0.25,
-          "rationale": "Statements are grounded, yet the omission of some referenced technologies reduces full faithfulness."
-        },
-        {
-          "criterion": "Completeness",
-          "score": 3.5,
-          "weight": 0.2,
-          "rationale": "Describes AgentLayer and several technologies but fails to mention SQLAlchemy and the full E2B Sandbox name."
-        },
-        {
-          "criterion": "InstructionFollowing",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Delivers a concise answer that satisfies the user query."
-        },
-        {
-          "criterion": "ConcisenessAndSafety",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Very brief, clear, and safe."
-        }
-      ],
-      "model_a_overall": 5.0,
-      "model_b_overall": 4.21,
-      "order_presented": "A_first",
-      "raw_winner": "Config A",
-      "swapped_winner": "Config A",
-      "final_winner": "Config A",
-      "is_flipped": false,
-      "justification": "Candidate A provides a fully correct, faithful, and complete description of AgentLayer and all listed technologies, achieving perfect scores across all criteria. Candidate B, while accurate and safe, omits SQLAlchemy and the \"Sandbox\" qualifier, resulting in lower completeness and slightly lower correctness and faithfulness. The weighted total gives Candidate A a clear advantage.\n[Order Swap Verification]: Position agreement confirmed (Config A).",
-      "latency_ms": 32033.49,
-      "token_usage": {
-        "prompt_tokens": 2242,
-        "completion_tokens": 3018,
-        "total_tokens": 5260
-      }
-    },
-    {
-      "test_id": "ab_06",
-      "model_a_name": "openai/gpt-oss-120b",
-      "model_b_name": "qwen/qwen3.8-27b",
-      "model_a_scores": [
-        {
-          "criterion": "Correctness",
-          "score": 5.0,
-          "weight": 0.35,
-          "rationale": "Accurately states the team placed in the top 19 of over 500 teams, matching the reference fact."
-        },
-        {
-          "criterion": "Faithfulness",
-          "score": 5.0,
-          "weight": 0.25,
-          "rationale": "All information is directly supported by the reference; no unsupported claims."
-        },
-        {
-          "criterion": "Completeness",
-          "score": 5.0,
-          "weight": 0.2,
-          "rationale": "Fully answers the asked ranking without omitting any required detail."
-        },
-        {
-          "criterion": "InstructionFollowing",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Provides a clear answer adhering to the prompt without extraneous formatting."
-        },
-        {
-          "criterion": "ConcisenessAndSafety",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Brief, precise, and contains no unsafe or irrelevant content."
-        }
-      ],
-      "model_b_scores": [
-        {
-          "criterion": "Correctness",
-          "score": 5.0,
-          "weight": 0.35,
-          "rationale": "Correctly reports the top\u201119 placement among 500+ teams, consistent with the reference."
-        },
-        {
-          "criterion": "Faithfulness",
-          "score": 5.0,
-          "weight": 0.25,
-          "rationale": "Statement is fully grounded in the provided fact; no additional speculation."
-        },
-        {
-          "criterion": "Completeness",
-          "score": 5.0,
-          "weight": 0.2,
-          "rationale": "Answers the ranking question completely, covering the essential information."
-        },
-        {
-          "criterion": "InstructionFollowing",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Meets the request succinctly and follows the expected answer style."
-        },
-        {
-          "criterion": "ConcisenessAndSafety",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Concise and safe; no filler or problematic content."
-        }
-      ],
-      "model_a_overall": 5.0,
-      "model_b_overall": 4.86,
-      "order_presented": "A_first",
-      "raw_winner": "Tie",
-      "swapped_winner": "Config A",
-      "final_winner": "Tie",
-      "is_flipped": true,
-      "justification": "Both candidates provide identical factual content, are fully faithful to the reference, answer the question completely, follow instructions, and are concise and safe. Their weighted scores are equal, resulting in a tie.\n[Order Swap Verification]: Position disagreement (Tie vs Config A) resolved as Tie (delta +0.14 within margin).",
-      "latency_ms": 24342.99,
-      "token_usage": {
-        "prompt_tokens": 2124,
-        "completion_tokens": 2243,
-        "total_tokens": 4367
-      }
-    },
-    {
-      "test_id": "ab_07",
-      "model_a_name": "openai/gpt-oss-120b",
-      "model_b_name": "qwen/qwen3.8-27b",
-      "model_a_scores": [
-        {
-          "criterion": "Correctness",
-          "score": 5.0,
-          "weight": 0.35,
-          "rationale": "Accurately states GCP Cloud Run, Jenkins pipeline, and static code analysis matching the reference."
-        },
-        {
-          "criterion": "Faithfulness",
-          "score": 5.0,
-          "weight": 0.25,
-          "rationale": "All claims are directly supported by the provided facts; no extrapolation."
-        },
-        {
-          "criterion": "Completeness",
-          "score": 5.0,
-          "weight": 0.2,
-          "rationale": "Covers cloud platform, CI/CD tool, and the static analysis detail, fulfilling the entire query."
-        },
-        {
-          "criterion": "InstructionFollowing",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Provides a concise answer without violating any formatting or tone requirements."
+          "rationale": "Provides a plain answer without violating any formatting or tone requirements."
         },
         {
           "criterion": "ConcisenessAndSafety",
@@ -630,274 +298,108 @@
           "criterion": "Correctness",
           "score": 4.0,
           "weight": 0.35,
-          "rationale": "Correctly identifies GCP Cloud Run and Jenkins but omits the static code analysis component."
+          "rationale": "Role is correct; description of the project omits the 'AI\u2011powered' and 'end\u2011to\u2011end' qualifiers."
         },
         {
           "criterion": "Faithfulness",
-          "score": 5.0,
-          "weight": 0.25,
-          "rationale": "No unsupported claims; the omission does not constitute hallucination."
-        },
-        {
-          "criterion": "Completeness",
-          "score": 3.5,
-          "weight": 0.2,
-          "rationale": "Leaves out the static code analysis detail, thus not fully answering the prompt."
-        },
-        {
-          "criterion": "InstructionFollowing",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Answer is concise and respects the requested format."
-        },
-        {
-          "criterion": "ConcisenessAndSafety",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Very brief and free of any unsafe or superfluous language."
-        }
-      ],
-      "model_a_overall": 4.97,
-      "model_b_overall": 4.67,
-      "order_presented": "A_first",
-      "raw_winner": "Config A",
-      "swapped_winner": "Config B",
-      "final_winner": "Config A",
-      "is_flipped": true,
-      "justification": "Candidate A scores perfectly on all criteria, while Candidate B loses points on completeness (and consequently on correctness) for omitting the static code analysis detail. Weighted scoring yields 5.0 for A versus 4.35 for B, making A the clear winner.\n[Order Swap Verification]: Position disagreement (Config A vs Config B) resolved by score delta (+0.30 favoring Config A).",
-      "latency_ms": 26770.05,
-      "token_usage": {
-        "prompt_tokens": 2128,
-        "completion_tokens": 2713,
-        "total_tokens": 4841
-      }
-    },
-    {
-      "test_id": "ab_08",
-      "model_a_name": "openai/gpt-oss-120b",
-      "model_b_name": "qwen/qwen3.8-27b",
-      "model_a_scores": [
-        {
-          "criterion": "Correctness",
-          "score": 5.0,
-          "weight": 0.35,
-          "rationale": "Accurately states that Trivy was integrated into the Jenkins CI/CD pipeline for container image scanning before GCP Cloud Run deployment, matching the reference."
-        },
-        {
-          "criterion": "Faithfulness",
-          "score": 5.0,
-          "weight": 0.25,
-          "rationale": "All details are directly supported by the reference; no unsupported claims."
-        },
-        {
-          "criterion": "Completeness",
-          "score": 5.0,
-          "weight": 0.2,
-          "rationale": "Names the required scanner, fully answering the question (extra context does not detract)."
-        },
-        {
-          "criterion": "InstructionFollowing",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Provides a plain\u2011text answer without violating any formatting rules."
-        },
-        {
-          "criterion": "ConcisenessAndSafety",
           "score": 4.5,
-          "weight": 0.1,
-          "rationale": "Slightly longer than necessary by adding pipeline details, but remains concise and safe."
-        }
-      ],
-      "model_b_scores": [
-        {
-          "criterion": "Correctness",
-          "score": 5.0,
-          "weight": 0.35,
-          "rationale": "Correctly identifies Trivy as the scanner used in the Jenkins pipeline."
-        },
-        {
-          "criterion": "Faithfulness",
-          "score": 5.0,
           "weight": 0.25,
-          "rationale": "Statement aligns exactly with the reference; no extra or hallucinated information."
+          "rationale": "Claims are supported by the reference; 'by himself' aligns with being the sole engineer, though detail is reduced."
         },
         {
           "criterion": "Completeness",
-          "score": 5.0,
-          "weight": 0.2,
-          "rationale": "Provides the scanner name, fully satisfying the query."
-        },
-        {
-          "criterion": "InstructionFollowing",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Answer is plain text and follows all implicit instructions."
-        },
-        {
-          "criterion": "ConcisenessAndSafety",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Very brief and to the point, with no unnecessary padding and no safety concerns."
-        }
-      ],
-      "model_a_overall": 4.97,
-      "model_b_overall": 5.0,
-      "order_presented": "A_first",
-      "raw_winner": "Config B",
-      "swapped_winner": "Tie",
-      "final_winner": "Tie",
-      "is_flipped": true,
-      "justification": "Both candidates are factually correct, faithful, complete, and follow instructions. Candidate B is marginally more concise, earning a perfect score for ConcisenessAndSafety, whereas Candidate A loses a small point for extra, non\u2011essential detail. Weighted totals: Candidate A\u202f=\u202f4.95, Candidate B\u202f=\u202f5.00, making Candidate B the winner.\n[Order Swap Verification]: Position disagreement (Config B vs Tie) resolved as Tie (delta -0.03 within margin).",
-      "latency_ms": 37510.49,
-      "token_usage": {
-        "prompt_tokens": 2094,
-        "completion_tokens": 2532,
-        "total_tokens": 4626
-      }
-    },
-    {
-      "test_id": "ab_09",
-      "model_a_name": "openai/gpt-oss-120b",
-      "model_b_name": "qwen/qwen3.8-27b",
-      "model_a_scores": [
-        {
-          "criterion": "Correctness",
-          "score": 5.0,
-          "weight": 0.35,
-          "rationale": "All mentioned components exactly match the reference facts."
-        },
-        {
-          "criterion": "Faithfulness",
-          "score": 5.0,
-          "weight": 0.25,
-          "rationale": "Every claim is directly supported by the given reference."
-        },
-        {
-          "criterion": "Completeness",
-          "score": 5.0,
-          "weight": 0.2,
-          "rationale": "Includes the library (Three.js) and all three interactive components: Holo-Deck Terminal with core canvas, topology simulations, and 3D card tilt physics."
-        },
-        {
-          "criterion": "InstructionFollowing",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Provides a single concise answer as requested."
-        },
-        {
-          "criterion": "ConcisenessAndSafety",
           "score": 4.5,
-          "weight": 0.1,
-          "rationale": "Brief and safe; a few extra words but no padding."
-        }
-      ],
-      "model_b_scores": [
-        {
-          "criterion": "Correctness",
-          "score": 4.0,
-          "weight": 0.35,
-          "rationale": "Correctly names Three.js and two components, but omits topology simulations."
-        },
-        {
-          "criterion": "Faithfulness",
-          "score": 5.0,
-          "weight": 0.25,
-          "rationale": "No unsupported information; statements are grounded in the reference."
-        },
-        {
-          "criterion": "Completeness",
-          "score": 3.5,
           "weight": 0.2,
-          "rationale": "Leaves out topology simulations and the core canvas detail, so not fully complete."
+          "rationale": "Provides both role and project, but with less detail than the reference."
         },
         {
           "criterion": "InstructionFollowing",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "Follows the requested format and stays concise."
+          "rationale": "Meets the required format and does not breach any instructions."
         },
         {
           "criterion": "ConcisenessAndSafety",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "Very brief, clear, and contains no unsafe content."
+          "rationale": "Extremely concise and free of any safety concerns."
         }
       ],
       "model_a_overall": 4.97,
-      "model_b_overall": 4.29,
+      "model_b_overall": 4.66,
       "order_presented": "A_first",
       "raw_winner": "Config A",
       "swapped_winner": "Config A",
       "final_winner": "Config A",
       "is_flipped": false,
-      "justification": "Candidate A scores higher on weighted criteria (4.95 vs 4.35) due to perfect correctness, faithfulness, and completeness, while remaining concise and safe. Candidate B, though safe and faithful, misses key components, lowering its overall score.\n[Order Swap Verification]: Position agreement confirmed (Config A).",
-      "latency_ms": 26617.2,
+      "justification": "Candidate A scores perfect marks on all criteria, yielding a weighted total of 5.0 versus Candidate B's weighted total of 4.425. The higher accuracy, full faithfulness, and complete coverage give Candidate A the clear advantage.\n[Order Swap Verification]: Position agreement confirmed (Config A).",
+      "latency_ms": 32144.35,
       "token_usage": {
-        "prompt_tokens": 2170,
-        "completion_tokens": 2822,
-        "total_tokens": 4992
+        "prompt_tokens": 2192,
+        "completion_tokens": 2728,
+        "total_tokens": 4920
       }
     },
     {
-      "test_id": "ab_10",
-      "model_a_name": "openai/gpt-oss-120b",
+      "test_id": "ab_04",
+      "model_a_name": "openai/gpt-oss-20b",
       "model_b_name": "qwen/qwen3.8-27b",
       "model_a_scores": [
         {
           "criterion": "Correctness",
           "score": 5.0,
           "weight": 0.35,
-          "rationale": "Accurately states Neo\u2011Brutalist design and both Neo\u2011Yellow and Cyber Dark Neo themes as given."
+          "rationale": "All three benchmark accuracies (78%, 90.05%, 91%) match the reference facts exactly."
         },
         {
           "criterion": "Faithfulness",
           "score": 5.0,
           "weight": 0.25,
-          "rationale": "All claims are directly supported by the reference; no extra information."
+          "rationale": "Every claim is directly supported by the provided reference; no extrapolation."
         },
         {
           "criterion": "Completeness",
           "score": 5.0,
           "weight": 0.2,
-          "rationale": "Mentions design system, token concept, and both specified themes, covering the full request."
+          "rationale": "Includes all three model accuracies and the additional note about >95% accuracy on distinct\u2011script languages."
         },
         {
           "criterion": "InstructionFollowing",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "Follows the required short answer format exactly."
+          "rationale": "Delivers a plain sentence without violating any formatting or tone requirements."
         },
         {
           "criterion": "ConcisenessAndSafety",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "Clear, concise, and contains no unsafe or superfluous content."
+          "rationale": "Concise, clear, and contains no unsafe or superfluous content."
         }
       ],
       "model_b_scores": [
         {
           "criterion": "Correctness",
-          "score": 4.0,
+          "score": 5.0,
           "weight": 0.35,
-          "rationale": "Correctly identifies Neo\u2011Brutalist style and Neo\u2011Yellow, but omits the \"Neo\" qualifier on the Cyber Dark theme."
+          "rationale": "Provides the correct three benchmark accuracies as given in the reference."
         },
         {
           "criterion": "Faithfulness",
-          "score": 4.5,
+          "score": 5.0,
           "weight": 0.25,
-          "rationale": "Mostly grounded in the reference; the missing \"Neo\" is a minor omission rather than hallucination."
+          "rationale": "All statements are directly grounded in the reference facts."
         },
         {
           "criterion": "Completeness",
           "score": 4.0,
           "weight": 0.2,
-          "rationale": "Covers style and two themes but does not mention the multi\u2011theme token system or the full \"Cyber Dark Neo\" label."
+          "rationale": "Omits the reported >95% accuracy on distinct\u2011script languages, leaving the answer partially incomplete."
         },
         {
           "criterion": "InstructionFollowing",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "Adheres to the brief, short\u2011answer format."
+          "rationale": "Follows the simple response format without any violations."
         },
         {
           "criterion": "ConcisenessAndSafety",
@@ -907,297 +409,131 @@
         }
       ],
       "model_a_overall": 5.0,
-      "model_b_overall": 4.52,
+      "model_b_overall": 4.85,
       "order_presented": "A_first",
       "raw_winner": "Config A",
       "swapped_winner": "Config A",
       "final_winner": "Config A",
       "is_flipped": false,
-      "justification": "Candidate A achieves perfect scores on all criteria, yielding a weighted total of 5.0 versus Candidate B's 4.33. A\u2019s answer is fully correct, faithful, and complete, while B omits the \"Neo\" qualifier and the token system detail, lowering its scores.\n[Order Swap Verification]: Position agreement confirmed (Config A).",
-      "latency_ms": 25402.72,
+      "justification": "Candidate A achieves perfect scores across all criteria, while Candidate B loses points on completeness for not mentioning the >95% distinct\u2011script language result. Weighted totals give Candidate A a higher overall score.\n[Order Swap Verification]: Position agreement confirmed (Config A).",
+      "latency_ms": 37578.54,
       "token_usage": {
-        "prompt_tokens": 2112,
-        "completion_tokens": 2403,
-        "total_tokens": 4515
+        "prompt_tokens": 2242,
+        "completion_tokens": 2527,
+        "total_tokens": 4769
       }
     },
     {
-      "test_id": "ab_11",
-      "model_a_name": "openai/gpt-oss-120b",
+      "test_id": "ab_05",
+      "model_a_name": "openai/gpt-oss-20b",
       "model_b_name": "qwen/qwen3.8-27b",
       "model_a_scores": [
         {
           "criterion": "Correctness",
           "score": 5.0,
           "weight": 0.35,
-          "rationale": "Accurately states the fiscal year ended January 26, 2025 and Delaware incorporation, matching reference."
+          "rationale": "All statements match the reference facts exactly; no factual errors."
         },
         {
           "criterion": "Faithfulness",
           "score": 5.0,
           "weight": 0.25,
-          "rationale": "All claims are directly supported by the provided reference; no extrapolation."
+          "rationale": "Every claim is directly supported by the given reference; no extrapolation."
         },
         {
           "criterion": "Completeness",
           "score": 5.0,
           "weight": 0.2,
-          "rationale": "Answers both required questions: fiscal year and state of incorporation."
+          "rationale": "Provides both the functional description and lists every technology mentioned in the reference."
         },
         {
           "criterion": "InstructionFollowing",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "Provides a clear, direct answer without violating any format or tone instructions."
+          "rationale": "Follows the required JSON output format and includes all requested fields."
         },
         {
           "criterion": "ConcisenessAndSafety",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "Brief, precise, and contains no unsafe or unnecessary content."
+          "rationale": "Clear, succinct wording with no unnecessary padding; content is safe."
         }
       ],
       "model_b_scores": [
         {
           "criterion": "Correctness",
-          "score": 5.0,
-          "weight": 0.35,
-          "rationale": "Correctly reports the fiscal year ended January 26, 2025 and Delaware incorporation."
-        },
-        {
-          "criterion": "Faithfulness",
-          "score": 5.0,
-          "weight": 0.25,
-          "rationale": "Statement is fully grounded in the reference facts."
-        },
-        {
-          "criterion": "Completeness",
-          "score": 5.0,
-          "weight": 0.2,
-          "rationale": "Provides both requested pieces of information."
-        },
-        {
-          "criterion": "InstructionFollowing",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Meets the implicit expectations for a concise answer."
-        },
-        {
-          "criterion": "ConcisenessAndSafety",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Extremely concise and free of any unsafe content."
-        }
-      ],
-      "model_a_overall": 5.0,
-      "model_b_overall": 5.0,
-      "order_presented": "A_first",
-      "raw_winner": "Tie",
-      "swapped_winner": "Tie",
-      "final_winner": "Tie",
-      "is_flipped": false,
-      "justification": "Both candidates deliver identical factual content, fully address the prompt, and adhere perfectly to all rubric criteria, resulting in equal weighted scores.\n[Order Swap Verification]: Position agreement confirmed (Tie).",
-      "latency_ms": 20857.24,
-      "token_usage": {
-        "prompt_tokens": 2162,
-        "completion_tokens": 1437,
-        "total_tokens": 3599
-      }
-    },
-    {
-      "test_id": "ab_12",
-      "model_a_name": "openai/gpt-oss-120b",
-      "model_b_name": "qwen/qwen3.8-27b",
-      "model_a_scores": [
-        {
-          "criterion": "Correctness",
-          "score": 5.0,
-          "weight": 0.35,
-          "rationale": "Provides the exact EIN 94-3177549 matching the reference."
-        },
-        {
-          "criterion": "Faithfulness",
-          "score": 5.0,
-          "weight": 0.25,
-          "rationale": "Statement is directly supported by the given fact; no extrapolation."
-        },
-        {
-          "criterion": "Completeness",
-          "score": 5.0,
-          "weight": 0.2,
-          "rationale": "Fully answers the question by naming NVIDIA's EIN."
-        },
-        {
-          "criterion": "InstructionFollowing",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Delivers a concise answer; no format violations."
-        },
-        {
-          "criterion": "ConcisenessAndSafety",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Brief, clear, and contains no unsafe content."
-        }
-      ],
-      "model_b_scores": [
-        {
-          "criterion": "Correctness",
-          "score": 5.0,
-          "weight": 0.35,
-          "rationale": "Provides the correct EIN 94-3177549."
-        },
-        {
-          "criterion": "Faithfulness",
-          "score": 5.0,
-          "weight": 0.25,
-          "rationale": "Fact is directly taken from the reference."
-        },
-        {
-          "criterion": "Completeness",
           "score": 4.0,
+          "weight": 0.35,
+          "rationale": "Accurate description but omits two technologies (SQLAlchemy and the sandbox aspect of E2B)."
+        },
+        {
+          "criterion": "Faithfulness",
+          "score": 4.0,
+          "weight": 0.25,
+          "rationale": "Only states facts present in the reference; however, omission of some details reduces faithfulness."
+        },
+        {
+          "criterion": "Completeness",
+          "score": 3.5,
           "weight": 0.2,
-          "rationale": "Gives the EIN but omits explicit mention of NVIDIA, slightly less complete."
+          "rationale": "Fails to mention SQLAlchemy and the sandbox nature of E2B, leaving the answer partially incomplete."
         },
         {
           "criterion": "InstructionFollowing",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "Answer is concise and respects format."
+          "rationale": "Adheres to the JSON format and includes required fields."
         },
         {
           "criterion": "ConcisenessAndSafety",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "Clear, brief, and safe."
+          "rationale": "Very brief and to the point, with no unsafe or superfluous content."
         }
       ],
       "model_a_overall": 5.0,
-      "model_b_overall": 4.9,
+      "model_b_overall": 4.16,
       "order_presented": "A_first",
       "raw_winner": "Config A",
-      "swapped_winner": "Tie",
-      "final_winner": "Tie",
-      "is_flipped": true,
-      "justification": "Both candidates are factually correct and faithful, but Candidate A explicitly references NVIDIA, achieving full completeness. Candidate B, while correct, is marginally less complete due to the missing explicit entity reference. Consequently, Candidate A attains a higher weighted score.\n[Order Swap Verification]: Position disagreement (Config A vs Tie) resolved as Tie (delta +0.10 within margin).",
-      "latency_ms": 20960.51,
-      "token_usage": {
-        "prompt_tokens": 2068,
-        "completion_tokens": 1655,
-        "total_tokens": 3723
-      }
-    },
-    {
-      "test_id": "ab_13",
-      "model_a_name": "openai/gpt-oss-120b",
-      "model_b_name": "qwen/qwen3.8-27b",
-      "model_a_scores": [
-        {
-          "criterion": "Correctness",
-          "score": 5.0,
-          "weight": 0.35,
-          "rationale": "Provides the exact commission file number matching the reference."
-        },
-        {
-          "criterion": "Faithfulness",
-          "score": 5.0,
-          "weight": 0.25,
-          "rationale": "Statement is directly supported by the reference fact; no extra unsupported claims."
-        },
-        {
-          "criterion": "Completeness",
-          "score": 5.0,
-          "weight": 0.2,
-          "rationale": "Answers the sole question fully by giving the required number."
-        },
-        {
-          "criterion": "InstructionFollowing",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Follows the implicit instruction to give a brief answer; no format violations."
-        },
-        {
-          "criterion": "ConcisenessAndSafety",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Extremely concise, no filler, safe content."
-        }
-      ],
-      "model_b_scores": [
-        {
-          "criterion": "Correctness",
-          "score": 5.0,
-          "weight": 0.35,
-          "rationale": "Provides the exact commission file number matching the reference."
-        },
-        {
-          "criterion": "Faithfulness",
-          "score": 5.0,
-          "weight": 0.25,
-          "rationale": "Statement is directly supported by the reference fact; no extra unsupported claims."
-        },
-        {
-          "criterion": "Completeness",
-          "score": 5.0,
-          "weight": 0.2,
-          "rationale": "Answers the question fully with the required number."
-        },
-        {
-          "criterion": "InstructionFollowing",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Meets the implicit instruction; no format issues."
-        },
-        {
-          "criterion": "ConcisenessAndSafety",
-          "score": 5.0,
-          "weight": 0.1,
-          "rationale": "Very concise and safe."
-        }
-      ],
-      "model_a_overall": 5.0,
-      "model_b_overall": 5.0,
-      "order_presented": "A_first",
-      "raw_winner": "Tie",
-      "swapped_winner": "Tie",
-      "final_winner": "Tie",
+      "swapped_winner": "Config A",
+      "final_winner": "Config A",
       "is_flipped": false,
-      "justification": "Both candidates provide the exact commission file number, are fully accurate, faithful to the reference, complete, follow instructions, and are concise. No discernible difference in quality.\n[Order Swap Verification]: Position agreement confirmed (Tie).",
-      "latency_ms": 26700.47,
+      "justification": "Candidate A accurately and fully conveys the definition of AgentLayer and enumerates all listed technologies, achieving perfect scores across all criteria. Candidate B, while correct in its core description, omits key components (SQLAlchemy and the sandbox detail), resulting in lower scores for correctness, faithfulness, and completeness. Therefore, Candidate A is the clear winner.\n[Order Swap Verification]: Position agreement confirmed (Config A).",
+      "latency_ms": 29797.45,
       "token_usage": {
-        "prompt_tokens": 2060,
-        "completion_tokens": 2183,
-        "total_tokens": 4243
+        "prompt_tokens": 2242,
+        "completion_tokens": 2558,
+        "total_tokens": 4800
       }
     },
     {
-      "test_id": "ab_14",
-      "model_a_name": "openai/gpt-oss-120b",
+      "test_id": "ab_06",
+      "model_a_name": "openai/gpt-oss-20b",
       "model_b_name": "qwen/qwen3.8-27b",
       "model_a_scores": [
         {
           "criterion": "Correctness",
           "score": 5.0,
           "weight": 0.35,
-          "rationale": "Accurately names both reportable segments exactly as in the reference."
+          "rationale": "Accurately states top\u201119 ranking out of >500 teams at the AI Race Month Grandprix, matching the reference."
         },
         {
           "criterion": "Faithfulness",
           "score": 5.0,
           "weight": 0.25,
-          "rationale": "All statements are directly supported by the reference fact; no extra information added."
+          "rationale": "All information is directly supported by the reference; no extra claims."
         },
         {
           "criterion": "Completeness",
           "score": 5.0,
           "weight": 0.2,
-          "rationale": "Provides both required segments, covering the entire answer scope."
+          "rationale": "Answers the sole question fully, providing the exact ranking and context."
         },
         {
           "criterion": "InstructionFollowing",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "Follows the JSON response format and uses the requested concise phrasing."
+          "rationale": "Follows the required plain\u2011text answer format without deviation."
         },
         {
           "criterion": "ConcisenessAndSafety",
@@ -1209,27 +545,691 @@
       "model_b_scores": [
         {
           "criterion": "Correctness",
-          "score": 5.0,
+          "score": 4.0,
           "weight": 0.35,
-          "rationale": "Accurately lists the two segments as stated in the reference."
+          "rationale": "Correct ranking but omits the word \u201cGrandprix,\u201d a minor factual detail."
         },
         {
           "criterion": "Faithfulness",
-          "score": 5.0,
+          "score": 4.0,
           "weight": 0.25,
-          "rationale": "No information beyond the reference is introduced; fully grounded."
+          "rationale": "Slightly less faithful due to dropping \u201cGrandprix,\u201d though the core fact remains."
         },
         {
           "criterion": "Completeness",
-          "score": 5.0,
+          "score": 4.0,
           "weight": 0.2,
-          "rationale": "Both required segments are mentioned, satisfying completeness."
+          "rationale": "Provides the ranking but lacks the full event name, leaving the answer partially incomplete."
         },
         {
           "criterion": "InstructionFollowing",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "Adheres to the format and provides a concise answer."
+          "rationale": "Meets format expectations."
+        },
+        {
+          "criterion": "ConcisenessAndSafety",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Concise and safe."
+        }
+      ],
+      "model_a_overall": 5.0,
+      "model_b_overall": 4.55,
+      "order_presented": "A_first",
+      "raw_winner": "Config A",
+      "swapped_winner": "Config A",
+      "final_winner": "Config A",
+      "is_flipped": false,
+      "justification": "Candidate A delivers a fully accurate, faithful, and complete answer with perfect adherence to instructions and conciseness, yielding a higher weighted score than Candidate B.\n[Order Swap Verification]: Position agreement confirmed (Config A).",
+      "latency_ms": 30713.73,
+      "token_usage": {
+        "prompt_tokens": 2124,
+        "completion_tokens": 2121,
+        "total_tokens": 4245
+      }
+    },
+    {
+      "test_id": "ab_07",
+      "model_a_name": "openai/gpt-oss-20b",
+      "model_b_name": "qwen/qwen3.8-27b",
+      "model_a_scores": [
+        {
+          "criterion": "Correctness",
+          "score": 5.0,
+          "weight": 0.35,
+          "rationale": "Accurately states GCP Cloud Run, Jenkins pipeline, and static code analysis, matching reference facts."
+        },
+        {
+          "criterion": "Faithfulness",
+          "score": 5.0,
+          "weight": 0.25,
+          "rationale": "All claims are directly supported by the given facts; no extrapolation."
+        },
+        {
+          "criterion": "Completeness",
+          "score": 5.0,
+          "weight": 0.2,
+          "rationale": "Includes cloud platform, CI/CD tool, and the static analysis detail required."
+        },
+        {
+          "criterion": "InstructionFollowing",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Provides a single clear answer in the requested format."
+        },
+        {
+          "criterion": "ConcisenessAndSafety",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Brief, precise, and contains no unsafe or superfluous content."
+        }
+      ],
+      "model_b_scores": [
+        {
+          "criterion": "Correctness",
+          "score": 4.0,
+          "weight": 0.35,
+          "rationale": "Correctly mentions GCP Cloud Run and Jenkins but omits static analysis, a minor omission."
+        },
+        {
+          "criterion": "Faithfulness",
+          "score": 5.0,
+          "weight": 0.25,
+          "rationale": "No unsupported claims; all statements are grounded in the reference."
+        },
+        {
+          "criterion": "Completeness",
+          "score": 3.0,
+          "weight": 0.2,
+          "rationale": "Fails to mention the static code analysis component, leaving the answer partially incomplete."
+        },
+        {
+          "criterion": "InstructionFollowing",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Delivers the answer in a clear, appropriate format."
+        },
+        {
+          "criterion": "ConcisenessAndSafety",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Extremely concise and safe, with no filler."
+        }
+      ],
+      "model_a_overall": 4.97,
+      "model_b_overall": 4.62,
+      "order_presented": "A_first",
+      "raw_winner": "Config A",
+      "swapped_winner": "Config B",
+      "final_winner": "Config A",
+      "is_flipped": true,
+      "justification": "Candidate A scores perfectly across all criteria, while Candidate B loses points on completeness (missing static analysis) and correctness (minor omission). Weighted totals give Candidate A a clear advantage.\n[Order Swap Verification]: Position disagreement (Config A vs Config B) resolved by score delta (+0.35 favoring Config A).",
+      "latency_ms": 37800.53,
+      "token_usage": {
+        "prompt_tokens": 2128,
+        "completion_tokens": 2258,
+        "total_tokens": 4386
+      }
+    },
+    {
+      "test_id": "ab_08",
+      "model_a_name": "openai/gpt-oss-20b",
+      "model_b_name": "qwen/qwen3.8-27b",
+      "model_a_scores": [
+        {
+          "criterion": "Correctness",
+          "score": 5.0,
+          "weight": 0.35,
+          "rationale": "Accurately identifies Trivy as the scanner and matches the reference details about Jenkins CI/CD and GCP Cloud Run."
+        },
+        {
+          "criterion": "Faithfulness",
+          "score": 5.0,
+          "weight": 0.25,
+          "rationale": "All statements are directly supported by the reference; no unsupported claims."
+        },
+        {
+          "criterion": "Completeness",
+          "score": 5.0,
+          "weight": 0.2,
+          "rationale": "Fully answers the question by naming the scanner and providing relevant context."
+        },
+        {
+          "criterion": "InstructionFollowing",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Provides a clear, single-sentence answer without violating any formatting rules."
+        },
+        {
+          "criterion": "ConcisenessAndSafety",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Brief, precise, and contains no unsafe or extraneous content."
+        }
+      ],
+      "model_b_scores": [
+        {
+          "criterion": "Correctness",
+          "score": 4.5,
+          "weight": 0.35,
+          "rationale": "Correctly names Trivy, but omits the explicit mention of vulnerability scanning, which is implied."
+        },
+        {
+          "criterion": "Faithfulness",
+          "score": 5.0,
+          "weight": 0.25,
+          "rationale": "Statement aligns with the reference; no hallucinated information."
+        },
+        {
+          "criterion": "Completeness",
+          "score": 4.5,
+          "weight": 0.2,
+          "rationale": "Answers the core question but provides less contextual detail than the reference."
+        },
+        {
+          "criterion": "InstructionFollowing",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Meets the format requirement with a concise answer."
+        },
+        {
+          "criterion": "ConcisenessAndSafety",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Extremely brief and free of any unsafe content."
+        }
+      ],
+      "model_a_overall": 4.97,
+      "model_b_overall": 4.86,
+      "order_presented": "A_first",
+      "raw_winner": "Config A",
+      "swapped_winner": "Config B",
+      "final_winner": "Tie",
+      "is_flipped": true,
+      "justification": "Both candidates correctly identify Trivy, but Candidate A offers a more complete and precise answer that mirrors the reference details without adding unnecessary padding, resulting in slightly higher scores in completeness and correctness.\n[Order Swap Verification]: Position disagreement (Config A vs Config B) resolved as Tie (delta +0.11 within margin).",
+      "latency_ms": 23633.0,
+      "token_usage": {
+        "prompt_tokens": 2094,
+        "completion_tokens": 2371,
+        "total_tokens": 4465
+      }
+    },
+    {
+      "test_id": "ab_09",
+      "model_a_name": "openai/gpt-oss-20b",
+      "model_b_name": "qwen/qwen3.8-27b",
+      "model_a_scores": [
+        {
+          "criterion": "Correctness",
+          "score": 5.0,
+          "weight": 0.35,
+          "rationale": "All stated facts (Three.js, Holo-Deck Terminal, core canvas, topology simulations, 3D card tilt physics) match the reference exactly."
+        },
+        {
+          "criterion": "Faithfulness",
+          "score": 5.0,
+          "weight": 0.25,
+          "rationale": "Every claim is directly supported by the reference; no extra or speculative information."
+        },
+        {
+          "criterion": "Completeness",
+          "score": 5.0,
+          "weight": 0.2,
+          "rationale": "Addresses the library and all three interactive components mentioned in the prompt."
+        },
+        {
+          "criterion": "InstructionFollowing",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Provides a concise answer in plain text, adhering to the requested format."
+        },
+        {
+          "criterion": "ConcisenessAndSafety",
+          "score": 4.5,
+          "weight": 0.1,
+          "rationale": "Clear and safe; slightly longer than necessary but no padding."
+        }
+      ],
+      "model_b_scores": [
+        {
+          "criterion": "Correctness",
+          "score": 4.0,
+          "weight": 0.35,
+          "rationale": "Correctly mentions Three.js and Holo-Deck, but omits topology simulations and core canvas detail."
+        },
+        {
+          "criterion": "Faithfulness",
+          "score": 4.0,
+          "weight": 0.25,
+          "rationale": "Information given is accurate but incomplete relative to the reference."
+        },
+        {
+          "criterion": "Completeness",
+          "score": 3.5,
+          "weight": 0.2,
+          "rationale": "Leaves out topology simulations and the core canvas aspect, covering only part of the required components."
+        },
+        {
+          "criterion": "InstructionFollowing",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Follows format and tone requirements."
+        },
+        {
+          "criterion": "ConcisenessAndSafety",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Very brief, clear, and safe with no unnecessary filler."
+        }
+      ],
+      "model_a_overall": 4.97,
+      "model_b_overall": 4.22,
+      "order_presented": "A_first",
+      "raw_winner": "Config A",
+      "swapped_winner": "Config A",
+      "final_winner": "Config A",
+      "is_flipped": false,
+      "justification": "Candidate A provides a fully correct, faithful, and complete answer covering all library and interactive components, yielding a higher weighted score (4.95) than Candidate B (4.10).\n[Order Swap Verification]: Position agreement confirmed (Config A).",
+      "latency_ms": 35223.6,
+      "token_usage": {
+        "prompt_tokens": 2170,
+        "completion_tokens": 2384,
+        "total_tokens": 4554
+      }
+    },
+    {
+      "test_id": "ab_10",
+      "model_a_name": "openai/gpt-oss-20b",
+      "model_b_name": "qwen/qwen3.8-27b",
+      "model_a_scores": [
+        {
+          "criterion": "Correctness",
+          "score": 5.0,
+          "weight": 0.35,
+          "rationale": "Accurately states Neo\u2011Brutalist aesthetic and both exact theme names Neo\u2011Yellow and Cyber Dark Neo."
+        },
+        {
+          "criterion": "Faithfulness",
+          "score": 5.0,
+          "weight": 0.25,
+          "rationale": "All claims are directly supported by the reference facts; no extra information."
+        },
+        {
+          "criterion": "Completeness",
+          "score": 5.0,
+          "weight": 0.2,
+          "rationale": "Answers both parts of the question: design aesthetic and the two color themes."
+        },
+        {
+          "criterion": "InstructionFollowing",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Provides a single concise sentence as requested; no format violations."
+        },
+        {
+          "criterion": "ConcisenessAndSafety",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Clear, direct, no filler or unsafe content."
+        }
+      ],
+      "model_b_scores": [
+        {
+          "criterion": "Correctness",
+          "score": 4.0,
+          "weight": 0.35,
+          "rationale": "Correctly mentions Neo\u2011Brutalist style and Neo\u2011Yellow, but omits the exact \"Neo\" qualifier for the Cyber Dark theme."
+        },
+        {
+          "criterion": "Faithfulness",
+          "score": 4.5,
+          "weight": 0.25,
+          "rationale": "Mostly grounded in the reference; the slight naming omission is a minor extrapolation."
+        },
+        {
+          "criterion": "Completeness",
+          "score": 5.0,
+          "weight": 0.2,
+          "rationale": "Covers both aesthetic and color themes, fulfilling the prompt."
+        },
+        {
+          "criterion": "InstructionFollowing",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Adheres to the requested concise format."
+        },
+        {
+          "criterion": "ConcisenessAndSafety",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Brief and safe; no unnecessary padding."
+        }
+      ],
+      "model_a_overall": 4.89,
+      "model_b_overall": 4.46,
+      "order_presented": "A_first",
+      "raw_winner": "Config A",
+      "swapped_winner": "Config A",
+      "final_winner": "Config A",
+      "is_flipped": false,
+      "justification": "Candidate A scores perfectly on all criteria, while Candidate B loses points on correctness and faithfulness due to the incomplete theme name. Weighted scoring yields a higher total for Candidate A.\n[Order Swap Verification]: Position agreement confirmed (Config A).",
+      "latency_ms": 29911.71,
+      "token_usage": {
+        "prompt_tokens": 2112,
+        "completion_tokens": 2518,
+        "total_tokens": 4630
+      }
+    },
+    {
+      "test_id": "ab_11",
+      "model_a_name": "openai/gpt-oss-20b",
+      "model_b_name": "qwen/qwen3.8-27b",
+      "model_a_scores": [
+        {
+          "criterion": "Correctness",
+          "score": 5.0,
+          "weight": 0.35,
+          "rationale": "The fiscal year and state of incorporation match the reference facts exactly."
+        },
+        {
+          "criterion": "Faithfulness",
+          "score": 5.0,
+          "weight": 0.25,
+          "rationale": "All statements are directly supported by the provided reference; no extra information is introduced."
+        },
+        {
+          "criterion": "Completeness",
+          "score": 5.0,
+          "weight": 0.2,
+          "rationale": "Both required pieces of information (fiscal year and incorporation state) are provided."
+        },
+        {
+          "criterion": "InstructionFollowing",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "The answer follows the simple request without deviating from format or tone."
+        },
+        {
+          "criterion": "ConcisenessAndSafety",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "The response is brief, clear, and contains no unsafe or superfluous content."
+        }
+      ],
+      "model_b_scores": [
+        {
+          "criterion": "Correctness",
+          "score": 5.0,
+          "weight": 0.35,
+          "rationale": "The fiscal year and incorporation state are accurately stated per the reference."
+        },
+        {
+          "criterion": "Faithfulness",
+          "score": 5.0,
+          "weight": 0.25,
+          "rationale": "No unsupported claims are made; the answer is fully grounded in the reference."
+        },
+        {
+          "criterion": "Completeness",
+          "score": 5.0,
+          "weight": 0.2,
+          "rationale": "Both asked\u2011for facts are included."
+        },
+        {
+          "criterion": "InstructionFollowing",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "The response adheres to the request without format violations."
+        },
+        {
+          "criterion": "ConcisenessAndSafety",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "The answer is succinct, clear, and safe."
+        }
+      ],
+      "model_a_overall": 5.0,
+      "model_b_overall": 5.0,
+      "order_presented": "A_first",
+      "raw_winner": "Tie",
+      "swapped_winner": "Tie",
+      "final_winner": "Tie",
+      "is_flipped": false,
+      "justification": "Both candidates deliver identical factual content with perfect scores across all criteria; any minor phrasing differences do not affect the weighted evaluation, resulting in a tie.\n[Order Swap Verification]: Position agreement confirmed (Tie).",
+      "latency_ms": 28758.75,
+      "token_usage": {
+        "prompt_tokens": 2162,
+        "completion_tokens": 1632,
+        "total_tokens": 3794
+      }
+    },
+    {
+      "test_id": "ab_12",
+      "model_a_name": "openai/gpt-oss-20b",
+      "model_b_name": "qwen/qwen3.8-27b",
+      "model_a_scores": [
+        {
+          "criterion": "Correctness",
+          "score": 5.0,
+          "weight": 0.35,
+          "rationale": "The statement exactly matches the reference fact."
+        },
+        {
+          "criterion": "Faithfulness",
+          "score": 5.0,
+          "weight": 0.25,
+          "rationale": "All information is directly supported by the provided reference."
+        },
+        {
+          "criterion": "Completeness",
+          "score": 5.0,
+          "weight": 0.2,
+          "rationale": "Fully answers the prompt by providing the requested EIN."
+        },
+        {
+          "criterion": "InstructionFollowing",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Delivers the answer without violating any formatting or tone instructions."
+        },
+        {
+          "criterion": "ConcisenessAndSafety",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Extremely concise, clear, and contains no unsafe content."
+        }
+      ],
+      "model_b_scores": [
+        {
+          "criterion": "Correctness",
+          "score": 5.0,
+          "weight": 0.35,
+          "rationale": "The EIN matches the reference fact."
+        },
+        {
+          "criterion": "Faithfulness",
+          "score": 5.0,
+          "weight": 0.25,
+          "rationale": "No extraneous or unsupported claims are made."
+        },
+        {
+          "criterion": "Completeness",
+          "score": 5.0,
+          "weight": 0.2,
+          "rationale": "Provides the exact EIN requested."
+        },
+        {
+          "criterion": "InstructionFollowing",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Adheres to all implicit instructions."
+        },
+        {
+          "criterion": "ConcisenessAndSafety",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Equally concise and safe as Candidate A."
+        }
+      ],
+      "model_a_overall": 5.0,
+      "model_b_overall": 5.0,
+      "order_presented": "A_first",
+      "raw_winner": "Tie",
+      "swapped_winner": "Tie",
+      "final_winner": "Tie",
+      "is_flipped": false,
+      "justification": "Both candidates deliver the identical factual answer with perfect accuracy, full faithfulness, complete coverage, strict adherence to instructions, and maximal conciseness. Their weighted scores are identical, resulting in a tie.\n[Order Swap Verification]: Position agreement confirmed (Tie).",
+      "latency_ms": 21607.21,
+      "token_usage": {
+        "prompt_tokens": 2068,
+        "completion_tokens": 1615,
+        "total_tokens": 3683
+      }
+    },
+    {
+      "test_id": "ab_13",
+      "model_a_name": "openai/gpt-oss-20b",
+      "model_b_name": "qwen/qwen3.8-27b",
+      "model_a_scores": [
+        {
+          "criterion": "Correctness",
+          "score": 5.0,
+          "weight": 0.35,
+          "rationale": "Provides the exact commission file number matching the reference."
+        },
+        {
+          "criterion": "Faithfulness",
+          "score": 5.0,
+          "weight": 0.25,
+          "rationale": "Statement is fully grounded in the given fact; no unsupported additions."
+        },
+        {
+          "criterion": "Completeness",
+          "score": 5.0,
+          "weight": 0.2,
+          "rationale": "Answers the sole question completely by giving the required number."
+        },
+        {
+          "criterion": "InstructionFollowing",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Delivers a direct answer without violating any format or tone constraints."
+        },
+        {
+          "criterion": "ConcisenessAndSafety",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Extremely brief, clear, and contains no unsafe content."
+        }
+      ],
+      "model_b_scores": [
+        {
+          "criterion": "Correctness",
+          "score": 5.0,
+          "weight": 0.35,
+          "rationale": "Provides the exact commission file number matching the reference."
+        },
+        {
+          "criterion": "Faithfulness",
+          "score": 5.0,
+          "weight": 0.25,
+          "rationale": "Statement is fully grounded in the given fact; no unsupported additions."
+        },
+        {
+          "criterion": "Completeness",
+          "score": 5.0,
+          "weight": 0.2,
+          "rationale": "Answers the sole question completely by giving the required number."
+        },
+        {
+          "criterion": "InstructionFollowing",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Delivers a direct answer without violating any format or tone constraints."
+        },
+        {
+          "criterion": "ConcisenessAndSafety",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Extremely brief, clear, and contains no unsafe content."
+        }
+      ],
+      "model_a_overall": 5.0,
+      "model_b_overall": 5.0,
+      "order_presented": "A_first",
+      "raw_winner": "Tie",
+      "swapped_winner": "Tie",
+      "final_winner": "Tie",
+      "is_flipped": false,
+      "justification": "Both candidates provide the exact commission file number, are fully faithful to the reference, answer the question completely, follow instructions, and are concise and safe. Their scores are identical across all criteria.\n[Order Swap Verification]: Position agreement confirmed (Tie).",
+      "latency_ms": 23550.33,
+      "token_usage": {
+        "prompt_tokens": 2060,
+        "completion_tokens": 1480,
+        "total_tokens": 3540
+      }
+    },
+    {
+      "test_id": "ab_14",
+      "model_a_name": "openai/gpt-oss-20b",
+      "model_b_name": "qwen/qwen3.8-27b",
+      "model_a_scores": [
+        {
+          "criterion": "Correctness",
+          "score": 5.0,
+          "weight": 0.35,
+          "rationale": "Accurately lists the two reportable segments exactly as given in the reference."
+        },
+        {
+          "criterion": "Faithfulness",
+          "score": 5.0,
+          "weight": 0.25,
+          "rationale": "All statements are directly supported by the reference; no extra or speculative information."
+        },
+        {
+          "criterion": "Completeness",
+          "score": 5.0,
+          "weight": 0.2,
+          "rationale": "Both required segments are mentioned; no part of the prompt is omitted."
+        },
+        {
+          "criterion": "InstructionFollowing",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Provides the answer in a concise sentence, adhering to the format and tone expectations."
+        },
+        {
+          "criterion": "ConcisenessAndSafety",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Very brief, clear, and contains no unsafe or unnecessary content."
+        }
+      ],
+      "model_b_scores": [
+        {
+          "criterion": "Correctness",
+          "score": 5.0,
+          "weight": 0.35,
+          "rationale": "Correctly identifies the two segments as stated in the reference."
+        },
+        {
+          "criterion": "Faithfulness",
+          "score": 5.0,
+          "weight": 0.25,
+          "rationale": "Statement is fully grounded in the provided facts with no extrapolation."
+        },
+        {
+          "criterion": "Completeness",
+          "score": 5.0,
+          "weight": 0.2,
+          "rationale": "Both required segments are included; answer is complete."
+        },
+        {
+          "criterion": "InstructionFollowing",
+          "score": 5.0,
+          "weight": 0.1,
+          "rationale": "Answer is concise and follows the requested style."
         },
         {
           "criterion": "ConcisenessAndSafety",
@@ -1245,48 +1245,48 @@
       "swapped_winner": "Tie",
       "final_winner": "Tie",
       "is_flipped": false,
-      "justification": "Both candidates deliver identical factual content with perfect adherence to the rubric across all criteria; therefore, their weighted scores are equal.\n[Order Swap Verification]: Position agreement confirmed (Tie).",
-      "latency_ms": 21902.12,
+      "justification": "Both candidates provide an identical, fully correct, faithful, complete, and concise answer. Their scores are equal across all criteria, resulting in a tie.\n[Order Swap Verification]: Position agreement confirmed (Tie).",
+      "latency_ms": 22094.76,
       "token_usage": {
         "prompt_tokens": 2070,
-        "completion_tokens": 1619,
-        "total_tokens": 3689
+        "completion_tokens": 1344,
+        "total_tokens": 3414
       }
     },
     {
       "test_id": "ab_15",
-      "model_a_name": "openai/gpt-oss-120b",
+      "model_a_name": "openai/gpt-oss-20b",
       "model_b_name": "qwen/qwen3.8-27b",
       "model_a_scores": [
         {
           "criterion": "Correctness",
           "score": 5.0,
           "weight": 0.35,
-          "rationale": "Accurately lists Hopper and Blackwell and correctly mentions Tensor Core GPUs, NVLink, and InfiniBand as described in the reference."
+          "rationale": "Accurately names both Hopper and Blackwell and correctly lists the associated Tensor Core GPUs, NVLink, and InfiniBand as described in the reference."
         },
         {
           "criterion": "Faithfulness",
           "score": 5.0,
           "weight": 0.25,
-          "rationale": "All statements are directly supported by the reference facts; no unsupported claims."
+          "rationale": "All statements are directly supported by the reference facts; no unsupported or invented information is present."
         },
         {
           "criterion": "Completeness",
           "score": 5.0,
           "weight": 0.2,
-          "rationale": "Provides the required architectures and includes all related features, fully covering the prompt."
+          "rationale": "The answer fully addresses the question by naming the two architectures; additional details do not detract from completeness."
         },
         {
           "criterion": "InstructionFollowing",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "No format or tone violations; answer is appropriate to the question."
+          "rationale": "Provides a clear, direct answer without violating any prompt instructions."
         },
         {
           "criterion": "ConcisenessAndSafety",
-          "score": 4.5,
+          "score": 5.0,
           "weight": 0.1,
-          "rationale": "Slightly verbose by adding extra feature details not asked for, but remains clear and safe."
+          "rationale": "The response is succinct, contains no filler, and is safe."
         }
       ],
       "model_b_scores": [
@@ -1300,40 +1300,40 @@
           "criterion": "Faithfulness",
           "score": 5.0,
           "weight": 0.25,
-          "rationale": "Every claim is grounded in the reference; no hallucinations."
+          "rationale": "All claims are supported by the reference; no extraneous or hallucinated content."
         },
         {
           "criterion": "Completeness",
           "score": 5.0,
           "weight": 0.2,
-          "rationale": "Answers the core question by listing both architectures; additional details are optional."
+          "rationale": "Answers the core question by listing the two architectures; omission of InfiniBand is not required for completeness."
         },
         {
           "criterion": "InstructionFollowing",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "Meets all implicit expectations without violations."
+          "rationale": "Follows the prompt\u2019s request without deviation."
         },
         {
           "criterion": "ConcisenessAndSafety",
           "score": 5.0,
           "weight": 0.1,
-          "rationale": "Very concise, directly to the point, and safe."
+          "rationale": "Very brief and to the point, with no unsafe or unnecessary material."
         }
       ],
-      "model_a_overall": 4.97,
+      "model_a_overall": 5.0,
       "model_b_overall": 5.0,
       "order_presented": "A_first",
-      "raw_winner": "Config B",
+      "raw_winner": "Tie",
       "swapped_winner": "Tie",
       "final_winner": "Tie",
-      "is_flipped": true,
-      "justification": "Both candidates are factually correct and faithful, but Candidate B is more concise, yielding a higher overall weighted score.\n[Order Swap Verification]: Position disagreement (Config B vs Tie) resolved as Tie (delta -0.03 within margin).",
-      "latency_ms": 27296.75,
+      "is_flipped": false,
+      "justification": "Both candidates are factually accurate, fully faithful to the reference, answer the question completely, follow the instructions, and are concise and safe. Their weighted scores are identical, resulting in a tie.\n[Order Swap Verification]: Position agreement confirmed (Tie).",
+      "latency_ms": 31142.6,
       "token_usage": {
         "prompt_tokens": 2116,
-        "completion_tokens": 2350,
-        "total_tokens": 4466
+        "completion_tokens": 2482,
+        "total_tokens": 4598
       }
     }
   ]

@@ -26,9 +26,27 @@ class QdrantStore:
         os.makedirs(self.storage_path, exist_ok=True)
         
         logger.info(f"Connecting to embedded Qdrant at: {self.storage_path}")
-        self.client = QdrantClient(path=self.storage_path)
-        self._ensure_collection()
-        atexit.register(self.close)
+        try:
+            self.client = QdrantClient(path=self.storage_path)
+            self._ensure_collection()
+            atexit.register(self.close)
+        except Exception as e:
+            if "already accessed" in str(e) or "AlreadyLocked" in str(e) or "PermissionError" in str(e):
+                import sys
+                print(
+                    "\n" + "=" * 75 + "\n"
+                    "  [LOCK NOTICE]: 'data/qdrant' is currently locked by another process!\n"
+                    "  Your 'uvicorn src.api:app' dev server is already running in another terminal.\n\n"
+                    "  HOW TO RUN STANDALONE INGESTION:\n"
+                    "    1. Go to the terminal running uvicorn (port 8000) and press [Ctrl + C] to stop it.\n"
+                    "    2. Re-run: uv run python -m src.ingestion\n\n"
+                    "  OR TO INGEST WHILE UVICORN IS RUNNING:\n"
+                    "    Run: curl.exe -X POST http://127.0.0.1:8000/ingest\n"
+                    + "=" * 75 + "\n",
+                    file=sys.stderr,
+                    flush=True
+                )
+            raise
 
     def close(self) -> None:
         """Safely close client connection on exit."""

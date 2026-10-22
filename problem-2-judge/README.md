@@ -178,17 +178,17 @@ Evaluated across **15 diverse test cases from Problem 1 real dataset** (Farhan's
 | Metric | Value |
 | :--- | :---: |
 | **Total Test Cases** | **15** |
-| **Config A Wins** | **8** (53.3%) |
+| **Config A Wins** | **9** (60.0%) |
 | **Config B Wins** | **0** (0.0%) |
-| **Ties** | **7** (46.7%) |
-| **Config A Mean Score** | **4.99 / 5.0** |
-| **Config B Mean Score** | **4.66 / 5.0** |
+| **Ties** | **6** (40.0%) |
+| **Config A Mean Score** | **4.98 / 5.0** |
+| **Config B Mean Score** | **4.68 / 5.0** |
 | **Declared Winner** | **Config A (`openai/gpt-oss-20b`)** |
 | **Total Judge API Calls** | **30 calls** (2 per case for position swap) |
-| **Position Flip Rate (Before Mitigation)** | **33.3%** (5 / 15 cases flipped on order) |
+| **Position Flip Rate (Before Mitigation)** | **13.3%** (2 / 15 cases flipped on order) |
 | **Position Flip Rate (After Mitigation)** | **0.0%** (100% neutralized) |
-| **Total Tokens Consumed** | **67,890 tokens** |
-| **Latency Percentiles (p50 / p95)** | **26.6s / 33.7s** |
+| **Total Tokens Consumed** | **65,018 tokens** |
+| **Latency Percentiles (p50 / p95)** | **29.8s / 37.6s** |
 
 ---
 

@@ -4,8 +4,8 @@ This repository contains the complete, production-grade solutions for both probl
 
 | Project | Description | Primary Technologies | Key Benchmark Highlights |
 | :--- | :--- | :--- | :--- |
-| **[Problem 1: Cost-Efficient RAG](problem-1-rag/README.md)** | Self-hosted, zero-idle-cost RAG system over multi-format documents with deterministic idempotency. | Qdrant (Embedded), FastEmbed (`bge-small-en-v1.5`), Groq (`gpt-oss-120b`), FastAPI | **Recall@k: 0.95**, **Hit Rate: 1.0**, **MRR: 0.91**, **Faithfulness: 100%**, **75%+ cost reduction** over managed vector DBs. |
-| **[Problem 2: LLM-as-a-Judge Pipeline](problem-2-judge/README.md)** | Robust LLM evaluation framework with multi-criteria rubric, defensive JSON repair, and rigorous bias mitigations. | Groq (`gpt-oss-120b` Judge, `gpt-oss-20b` Candidate A, `qwen3.8-27b` Candidate B), Pydantic v2 | **Position Flip Rate: 33.3% $\rightarrow$ 0.0%** (100% neutralized), **3/3 adversarial probes passed**, **100% test-retest agreement**. |
+| **[Problem 1: Cost-Efficient RAG](problem-1-rag/README.md)** | Self-hosted, zero-idle-cost RAG system over multi-format documents with deterministic idempotency. | Qdrant (Embedded), FastEmbed (`bge-small-en-v1.5`), Groq (`gpt-oss-120b`), FastAPI | **Recall@k (Hit Rate): 76.5%**, **MRR: 0.5637**, **nDCG@5: 0.6125**, **Faithfulness: 100%**, **83%–88% cost savings** over managed DBs. |
+| **[Problem 2: LLM-as-a-Judge Pipeline](problem-2-judge/README.md)** | Robust LLM evaluation framework with multi-criteria rubric, defensive JSON repair, and rigorous bias mitigations. | Groq (`gpt-oss-120b` Judge, `gpt-oss-20b` Candidate A, `qwen3.8-27b` Candidate B), Pydantic v2 | **Position Flip Rate: 13.3% $\rightarrow$ 0.0%** (100% neutralized), **Fluff Penalty Delta: +0.75**, **3/3 adversarial probes passed**, **100% test-retest agreement**. |
 
 ---
 
@@ -30,6 +30,93 @@ synlabs/
 │   ├── pyproject.toml                   # uv project config
 │   └── README.md                        # Full technical report, rubric, & trade-off analysis
 └── README.md                            # Main project overview (this file)
+```
+
+---
+
+## 🏛️ System Architecture Flowcharts
+
+### Problem 1: Cost-Efficient RAG Architecture Flowchart
+```mermaid
+flowchart TD
+    subgraph Ingestion["Ingestion & Indexing Pipeline"]
+        A["1. Multi-Format Raw Corpus<br/>(resume.md, index.html, NVIDIA.pdf)"] --> B["2. Token-Aware Chunking<br/>(500 chars, 100 overlap, UUIDv5)"]
+        B --> C["3. Local ONNX Embedding<br/>(BAAI/bge-small-en-v1.5, 384-dim, $0 cost)"]
+        C --> D[("4. Embedded Qdrant Store<br/>(data/qdrant - 1,286 vectors)")]
+    end
+
+    subgraph QueryPipeline["Online Query & Generation Pipeline"]
+        Q["User Query / FastAPI Endpoint<br/>(POST /query)"] --> R["5. Top-K Retrieval & Metadata Filtering<br/>(Query embedded via FastEmbed, k=5)"]
+        D -.->|"HNSW Search & Payload Read"| R
+        R --> Dec{"Score >= 0.55 Threshold?<br/>Relevance Verification"}
+        
+        Dec -->|"YES (Relevant Context)"| G["6. Grounded LLM Generation<br/>(Groq openai/gpt-oss-120b, temp=0.0)<br/>• Mandatory Inline Citations [Chunk ID]<br/>• 100.0% Faithfulness"]
+        Dec -->|"NO (Below Threshold)"| F["7. Strict Refusal Branch<br/>(Short-circuit LLM)<br/>• Fallback: 'Insufficient context'<br/>• Zero Hallucination Guaranteed"]
+        
+        G --> Out["8. Structured Response JSON<br/>(Answer, Citations, Latency Telemetry)"]
+        F --> Out
+    end
+
+    style Ingestion fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#fff
+    style QueryPipeline fill:#1e293b,stroke:#8b5cf6,stroke-width:2px,color:#fff
+    style D fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#fff
+    style Dec fill:#78350f,stroke:#f59e0b,stroke-width:2px,color:#fff
+    style G fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#fff
+    style F fill:#7f1d1d,stroke:#ef4444,stroke-width:2px,color:#fff
+    style Out fill:#1e3a5f,stroke:#60a5fa,stroke-width:2px,color:#fff
+```
+
+### Problem 2: LLM-as-a-Judge Evaluation Pipeline Flowchart
+```mermaid
+flowchart TD
+    subgraph InputStage["1. Test Suite Ingestion"]
+        A["Test Suite JSONL<br/>(evaluation/suite_ab.jsonl - 15 cases)<br/>• Prompt + Ground Truth Reference<br/>• Candidate A vs Candidate B"]
+    end
+
+    subgraph BiasMitigation["2. Position-Swap Order Harness"]
+        P1["Permutation 1: (A, B)"]
+        P2["Permutation 2: (B, A)"]
+    end
+
+    A --> P1
+    A --> P2
+
+    subgraph EvaluationStage["3. Multi-Criteria Rubric & Judge Inference"]
+        J["Groq LLM Judge (openai/gpt-oss-120b, temp=0.0)<br/>• Correctness (0.35) • Faithfulness (0.25)<br/>• Completeness (0.20) • Instruction-Following (0.10)<br/>• Conciseness & Safety (0.10)"]
+    end
+
+    P1 --> J
+    P2 --> J
+
+    subgraph ParsingStage["4. Defensive JSON Parser & Malformed Recovery"]
+        Parse["extract_and_repair_json()<br/>• Strip markdown code fences<br/>• Trailing comma regex repair<br/>• Pydantic v2 Schema Validation"]
+    end
+
+    J --> Parse
+
+    subgraph ArbitrationStage["5. Bias Arbitration & Agreement Check"]
+        Dec{"Winner(Permutation 1) == Winner(Permutation 2)?"}
+        Parse --> Dec
+        
+        Dec -->|"YES (Agreement)"| Win["Confirm Clear Winner<br/>(Flip Rate = 0.0%)"]
+        Dec -->|"NO (Flip Detected)"| Arb["Score Delta Arbitration / Tie<br/>(Average criteria scores across runs)"]
+    end
+
+    subgraph ReportStage["6. Output Telemetry & Reporting"]
+        Rep["Audit Logs (artifacts/audit_logs.jsonl)<br/>& Consolidated Report (artifacts/report.json)"]
+    end
+
+    Win --> Rep
+    Arb --> Rep
+
+    style InputStage fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#fff
+    style BiasMitigation fill:#1e293b,stroke:#f59e0b,stroke-width:2px,color:#fff
+    style EvaluationStage fill:#1e293b,stroke:#8b5cf6,stroke-width:2px,color:#fff
+    style ParsingStage fill:#1e293b,stroke:#10b981,stroke-width:2px,color:#fff
+    style Dec fill:#78350f,stroke:#f59e0b,stroke-width:2px,color:#fff
+    style Win fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#fff
+    style Arb fill:#78350f,stroke:#f59e0b,stroke-width:2px,color:#fff
+    style Rep fill:#1e3a5f,stroke:#60a5fa,stroke-width:2px,color:#fff
 ```
 
 ---
@@ -103,23 +190,28 @@ uv run python evaluation/run_all.py
 ---
 
 ## 📊 Summary of Benchmark Results
+*(All metrics are directly reproducible from `problem-1-rag/artifacts/evaluation_results.json` and `problem-2-judge/artifacts/report.json`)*
 
 ### Problem 1 (RAG Retrieval & Quality Benchmark)
-- **Dataset:** 20 diverse questions (factual, multi-chunk synthesis, metadata-filtered, and unanswerable negative queries).
-- **Retrieval Recall@k:** `0.95`
-- **Hit Rate@k:** `1.00`
-- **Mean Reciprocal Rank (MRR):** `0.91`
-- **nDCG@k:** `0.93`
-- **Answer Faithfulness (LLM-Judge Groundedness):** `100.0%`
-- **Idempotency Verification:** Re-ingesting 1,286 vectors produces exactly `0 duplicates` and strictly unchanged vector counts.
+- **Dataset:** 20 diverse questions (factual single-chunk, multi-chunk synthesis, metadata-filtered, and unanswerable negative queries).
+- **Recall@5 / Hit Rate:** `76.5% (0.7647)` (13/17 answerable queries retrieved relevant gold chunks in top-5; 3 out-of-corpus queries correctly returned 0 chunks). Mean Recall@5: `0.6863`.
+- **Mean Reciprocal Rank (MRR):** `0.5637`
+- **nDCG@5:** `0.6125`
+- **Context Precision:** `0.3471`
+- **Answer Faithfulness (LLM-Judge Groundedness):** `100.0%` (0 claims made outside retrieved chunks).
+- **Answer Relevance:** `90.0%` (18/20 questions directly answered or appropriately refused).
+- **Exact Match (EM) & Token F1:** EM = `15.0%`, Token F1 = `0.5139`.
+- **Latency Benchmarks:** Retrieval p50 = `41.80 ms`, Retrieval p95 = `71.02 ms`, End-to-End p50 = `2,044 ms`.
+- **Idempotency Verification:** Re-ingesting 1,286 vectors produces exactly `0 duplicates` and strictly unchanged vector count (`1,286`).
+- **Cost Savings vs Managed DB:** `83% to 88%` monthly infrastructure savings ($8/mo vs $70/mo at 100K; $24/mo vs $140/mo at 1M; $75/mo vs $560/mo at 10M).
 
 ### Problem 2 (LLM-as-a-Judge & Bias Mitigations)
 - **Model Triad:** Judge = `openai/gpt-oss-120b`, Candidate A = `openai/gpt-oss-20b`, Candidate B = `qwen/qwen3.8-27b`.
-- **Pairwise A/B Result:** Candidate A won 8/15 cases (53.3%), 7 Ties (46.7%), 0 losses. Mean score: `4.99` vs `4.66`.
-- **Position Bias Flip Rate:** Reduced from **33.3% down to 0.0%** (100% neutralized via permutation arbitration).
-- **Verbosity Bias Probe:** Concise factual answer ($5.0$) outperformed 80-word boilerplate fluff ($4.4$) by **$+0.60$ delta**.
+- **Pairwise A/B Result:** Candidate A won 9/15 cases (60.0%), 6 Ties (40.0%), 0 losses. Mean score: `4.98` vs `4.68`.
+- **Position Bias Flip Rate:** Reduced from **13.3% down to 0.0%** (100% neutralized via permutation order-swap arbitration).
+- **Verbosity Bias Probe:** Concise factual answer ($5.0$) outperformed 80-word boilerplate fluff ($4.25$) by **$+0.75$ delta**.
 - **Sycophancy Probe:** Polished, flattering falsehood scored **1.0 / 5.0 for Correctness** (fooled by polite tone: **False**).
-- **Adversarial Suite:** 3 of 3 adversarial probes passed cleanly.
+- **Adversarial Suite:** 3 of 3 adversarial probes passed cleanly (100% rejection of hallucinated fluff).
 - **Test-Retest Consistency:** 100% agreement across repeated runs (variance = `0.00`).
 
 ---

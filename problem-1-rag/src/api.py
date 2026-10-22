@@ -62,6 +62,22 @@ class QueryResponse(BaseModel):
     token_usage: TokenUsage
 
 
+@app.get("/", status_code=status.HTTP_200_OK)
+def root() -> Dict[str, Any]:
+    """Root landing endpoint with links to documentation and health check."""
+    return {
+        "service": "SynLabs Cost-Efficient RAG Service",
+        "status": "online",
+        "documentation": "/docs",
+        "health": "/health",
+        "endpoints": {
+            "query": "POST /query",
+            "ingest": "POST /ingest",
+            "health": "GET /health"
+        }
+    }
+
+
 @app.get("/health", status_code=status.HTTP_200_OK)
 def health_check() -> Dict[str, Any]:
     """Report service health, model configuration, and vector store stats."""

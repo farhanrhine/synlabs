@@ -12,13 +12,13 @@
     "answer_quality": {
       "faithfulness": 1.0,
       "exact_match": 0.15,
-      "token_f1": 0.5133
+      "token_f1": 0.5139
     },
     "latency_ms": {
-      "retrieval_p50": 24.33,
-      "retrieval_p95": 53.99,
-      "end_to_end_p50": 3327.03,
-      "end_to_end_p95": 9223.24
+      "retrieval_p50": 41.8,
+      "retrieval_p95": 71.02,
+      "end_to_end_p50": 2044.78,
+      "end_to_end_p95": 15598.53
     }
   },
   "per_question_results": [
@@ -26,7 +26,7 @@
       "id": 1,
       "question": "What is Mohammad Farhan Alam's primary domain of engineering expertise according to his portfolio and resume?",
       "is_answerable": true,
-      "generated_answer": "Mohammad\u202fFarhan\u202fAlam\u2019s resume highlights his main engineering focus as **Generative AI and agentic AI development**, including work with large language models, retrieval\u2011augmented generation, and AI agent frameworks such as LangGraph, LangChain, and LangSmith\u3010Chunk 1\u3011.",
+      "generated_answer": "Mohammad\u202fFarhan\u202fAlam\u2019s resume highlights his main engineering focus as **Generative AI and agentic AI development**, including work with large language models, retrieval\u2011augmented generation, and related AI tooling\u3010Chunk 1\u3011.",
       "reference_answer": "Mohammad Farhan Alam is an Agentic AI and ML Engineer specializing in Autonomous Multi-Agent Workflows, MCP Infrastructure, Digital Twin Simulations, and Production MLOps.",
       "retrieval_metrics": {
         "hit_rate": 1.0,
@@ -36,14 +36,14 @@
         "precision": 1.0
       },
       "em": 0.0,
-      "f1": 0.2105,
+      "f1": 0.2353,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 35.03,
-      "total_latency_ms": 1024.39,
+      "retrieval_latency_ms": 63.28,
+      "total_latency_ms": 1981.9,
       "token_usage": {
         "prompt_tokens": 388,
-        "completion_tokens": 195,
-        "total_tokens": 583
+        "completion_tokens": 184,
+        "total_tokens": 572
       }
     },
     {
@@ -62,8 +62,8 @@
       "em": 0.0,
       "f1": 0.0645,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 23.98,
-      "total_latency_ms": 650.77,
+      "retrieval_latency_ms": 33.71,
+      "total_latency_ms": 654.0,
       "token_usage": {
         "prompt_tokens": 384,
         "completion_tokens": 75,
@@ -86,8 +86,8 @@
       "em": 0.0,
       "f1": 0.6885,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 25.13,
-      "total_latency_ms": 918.01,
+      "retrieval_latency_ms": 61.86,
+      "total_latency_ms": 1930.99,
       "token_usage": {
         "prompt_tokens": 546,
         "completion_tokens": 197,
@@ -98,7 +98,7 @@
       "id": 4,
       "question": "What benchmark accuracies did Farhan achieve during his internship at Infosys Springboard 5.0 for language detection?",
       "is_answerable": true,
-      "generated_answer": "During his Infosys Springboard\u202f5.0 internship, Farhan benchmarked three models for multilingual language detection and achieved the following accuracies: Logistic Regression\u202f\u2248\u202f78\u202f%, GRU\u202f\u2248\u202f90.05\u202f%, and LSTM\u202f\u2248\u202f91\u202f%\u3010Chunk 3\u3011. (The same figures are also mentioned in the project description\u3010Chunk 2\u3011).",
+      "generated_answer": "During his Infosys Springboard\u202f5.0 internship, Farhan benchmarked three models for multilingual language detection and achieved the following accuracies: Logistic Regression\u202f\u2248\u202f78\u202f%, GRU\u202f\u2248\u202f90.05\u202f%, and LSTM\u202f\u2248\u202f91\u202f%\u3010Chunk 3\u3011. (The same figures are also mentioned in the project description for the same internship\u3010Chunk 2\u3011).",
       "reference_answer": "Farhan benchmarked Logistic Regression at 78%, GRU at 90.05%, and LSTM at 91%, reaching 95%+ accuracy on distinct-script languages.",
       "retrieval_metrics": {
         "hit_rate": 1.0,
@@ -108,21 +108,21 @@
         "precision": 0.4
       },
       "em": 0.0,
-      "f1": 0.339,
+      "f1": 0.3226,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 27.34,
-      "total_latency_ms": 1093.44,
+      "retrieval_latency_ms": 44.47,
+      "total_latency_ms": 2288.07,
       "token_usage": {
         "prompt_tokens": 997,
-        "completion_tokens": 293,
-        "total_tokens": 1290
+        "completion_tokens": 297,
+        "total_tokens": 1294
       }
     },
     {
       "id": 5,
       "question": "What is AgentLayer and what technologies does it use?",
       "is_answerable": true,
-      "generated_answer": "AgentLayer is a platform that converts a website into MCP (Multi\u2011Component\u202fPlatform) tools that AI agents such as Claude or Cursor can invoke simply by adding a single script tag to the site. It is built with FastMCP, Python, FastAPI, the E2B sandbox, React\u202f19, and SQLAlchemy\u3010Chunk\u202f1\u3011.",
+      "generated_answer": "AgentLayer is a platform that converts a website into \u201cMCP tools\u201d that AI agents (such as Claude or Cursor) can invoke simply by adding a single script tag to the site. It was built with FastMCP, Python, FastAPI, the E2B sandbox, React\u202f19, and SQLAlchemy\u3010Chunk\u202f1\u3011\u3010Chunk\u202f2\u3011",
       "reference_answer": "AgentLayer is a platform that turns websites into MCP tools that AI agents can call enabled by a single script tag, built with FastMCP, Python, FastAPI, E2B Sandbox, React 19, and SQLAlchemy.",
       "retrieval_metrics": {
         "hit_rate": 1.0,
@@ -132,21 +132,21 @@
         "precision": 0.4
       },
       "em": 0.0,
-      "f1": 0.6849,
+      "f1": 0.6389,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 21.77,
-      "total_latency_ms": 1236.99,
+      "retrieval_latency_ms": 27.77,
+      "total_latency_ms": 1745.12,
       "token_usage": {
         "prompt_tokens": 952,
-        "completion_tokens": 223,
-        "total_tokens": 1175
+        "completion_tokens": 211,
+        "total_tokens": 1163
       }
     },
     {
       "id": 6,
       "question": "What ranking did the CrowdFlow AI team achieve at the AI Race Month Grandprix?",
       "is_answerable": true,
-      "generated_answer": "The CrowdFlow\u202fAI team placed in the **top\u202f19** out of more than 500 teams at the AI Race Month Grandprix\u3010Chunk\u202f1\u3011.",
+      "generated_answer": "The CrowdFlow AI team placed in the top\u202f19 of more than\u202f500 teams at the AI Race Month Grandprix\u3010Chunk 1\u3011.",
       "reference_answer": "CrowdFlow AI placed in the top 19 of 500+ teams at the AI Race Month Grandprix.",
       "retrieval_metrics": {
         "hit_rate": 1.0,
@@ -156,21 +156,21 @@
         "precision": 0.4
       },
       "em": 0.0,
-      "f1": 0.7879,
+      "f1": 0.8125,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 25.43,
-      "total_latency_ms": 969.54,
+      "retrieval_latency_ms": 34.22,
+      "total_latency_ms": 1626.06,
       "token_usage": {
         "prompt_tokens": 973,
-        "completion_tokens": 172,
-        "total_tokens": 1145
+        "completion_tokens": 168,
+        "total_tokens": 1141
       }
     },
     {
       "id": 7,
       "question": "What cloud platform and CI/CD tools did Farhan use for deploying his Multi-AI Agent System?",
       "is_answerable": true,
-      "generated_answer": "Farhan deployed the Multi\u2011AI Agent System on **Google Cloud Platform\u2019s Cloud Run** and used **Jenkins** for the CI/CD pipeline\u3010Chunk 2\u3011.",
+      "generated_answer": "Farhan deployed the Multi\u2011AI Agent System on **Google Cloud Platform\u2019s Cloud Run** and used **Jenkins CI/CD** for the deployment pipeline\u3010Chunk 2\u3011.",
       "reference_answer": "The Multi-AI Agent System was deployed to GCP Cloud Run through a Jenkins CI/CD pipeline with static code analysis.",
       "retrieval_metrics": {
         "hit_rate": 1.0,
@@ -180,14 +180,14 @@
         "precision": 0.4
       },
       "em": 0.0,
-      "f1": 0.4,
+      "f1": 0.3889,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 23.33,
-      "total_latency_ms": 876.34,
+      "retrieval_latency_ms": 36.91,
+      "total_latency_ms": 917.19,
       "token_usage": {
         "prompt_tokens": 982,
-        "completion_tokens": 173,
-        "total_tokens": 1155
+        "completion_tokens": 196,
+        "total_tokens": 1178
       }
     },
     {
@@ -206,8 +206,8 @@
       "em": 0.0,
       "f1": 0.4667,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 23.71,
-      "total_latency_ms": 746.54,
+      "retrieval_latency_ms": 57.28,
+      "total_latency_ms": 839.16,
       "token_usage": {
         "prompt_tokens": 952,
         "completion_tokens": 128,
@@ -218,7 +218,7 @@
       "id": 9,
       "question": "What 3D graphics library and interactive components are featured on Farhan's portfolio website?",
       "is_answerable": true,
-      "generated_answer": "The site uses **WebGL** for its 3\u2011D graphics, presenting an interactive 3\u2011D graph of Farhan\u2019s AI systems.  Visitors can interact with the visualization by using controls such as **drag\u2011to\u2011orbit**, **scroll\u2011to\u2011zoom**, **clicking nodes to inspect them**, as well as toggles like **Auto\u2011Orbit** and a **Trigger Data Surge** button\u3010Chunk\u202f1\u3011\u3010Chunk\u202f3\u3011.",
+      "generated_answer": "The site uses a **WebGL\u2011based 3D graph** for its visualizations\u202f[Chunk\u202f1] and provides several interactive controls, including a \u201cTrigger Data Surge\u201d button, an \u201cAuto\u2011Orbit\u201d toggle, drag\u2011to\u2011orbit navigation, scroll\u2011to\u2011zoom, and the ability to click individual 3D nodes for inspection\u202f[Chunk\u202f3].",
       "reference_answer": "Farhan's portfolio features Three.js 3D animations including a Holo-Deck Terminal with core canvas, topology simulations, and interactive 3D card tilt physics.",
       "retrieval_metrics": {
         "hit_rate": 0.0,
@@ -228,14 +228,14 @@
         "precision": 0.0
       },
       "em": 0.0,
-      "f1": 0.0923,
+      "f1": 0.1786,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 93.0,
-      "total_latency_ms": 1220.56,
+      "retrieval_latency_ms": 139.42,
+      "total_latency_ms": 1870.81,
       "token_usage": {
         "prompt_tokens": 905,
-        "completion_tokens": 323,
-        "total_tokens": 1228
+        "completion_tokens": 295,
+        "total_tokens": 1200
       }
     },
     {
@@ -254,8 +254,8 @@
       "em": 0.0,
       "f1": 0.0,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 21.35,
-      "total_latency_ms": 7805.51,
+      "retrieval_latency_ms": 50.07,
+      "total_latency_ms": 3154.16,
       "token_usage": {
         "prompt_tokens": 834,
         "completion_tokens": 98,
@@ -266,7 +266,7 @@
       "id": 11,
       "question": "For what fiscal year was NVIDIA's Form 10-K filed, and what is NVIDIA's state of incorporation?",
       "is_answerable": true,
-      "generated_answer": "NVIDIA\u2019s Form\u202f10\u2011K was filed for the fiscal year that ended on January\u202f26,\u202f2025\u202f[Chunk\u202f4]. The company was originally incorporated in California but was reincorporated in Delaware in April\u202f1998, making Delaware its current state of incorporation\u202f[Chunk\u202f1].",
+      "generated_answer": "NVIDIA\u2019s Form\u202f10\u2011K was filed for the fiscal year that ended on January\u202f26,\u202f2025\u202f[Chunk\u202f4]. The company was originally incorporated in California in April\u202f1993 and was reincorporated in Delaware in April\u202f1998, making Delaware its current state of incorporation\u202f[Chunk\u202f1].",
       "reference_answer": "NVIDIA Corporation's Form 10-K was filed for the fiscal year ended January 26, 2025, and NVIDIA is incorporated in Delaware.",
       "retrieval_metrics": {
         "hit_rate": 1.0,
@@ -276,14 +276,14 @@
         "precision": 0.4
       },
       "em": 0.0,
-      "f1": 0.4483,
+      "f1": 0.459,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 29.54,
-      "total_latency_ms": 7936.41,
+      "retrieval_latency_ms": 51.35,
+      "total_latency_ms": 9494.02,
       "token_usage": {
         "prompt_tokens": 988,
-        "completion_tokens": 261,
-        "total_tokens": 1249
+        "completion_tokens": 266,
+        "total_tokens": 1254
       }
     },
     {
@@ -302,8 +302,8 @@
       "em": 0.0,
       "f1": 0.625,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 24.67,
-      "total_latency_ms": 10998.09,
+      "retrieval_latency_ms": 50.15,
+      "total_latency_ms": 6915.2,
       "token_usage": {
         "prompt_tokens": 960,
         "completion_tokens": 143,
@@ -326,8 +326,8 @@
       "em": 0.0,
       "f1": 0.4444,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 26.69,
-      "total_latency_ms": 6816.97,
+      "retrieval_latency_ms": 31.72,
+      "total_latency_ms": 15546.12,
       "token_usage": {
         "prompt_tokens": 957,
         "completion_tokens": 118,
@@ -338,7 +338,7 @@
       "id": 14,
       "question": "What are the two reportable segments through which NVIDIA conducts its business?",
       "is_answerable": true,
-      "generated_answer": "NVIDIA conducts its business through two reportable segments: **Compute\u202f&\u202fNetworking** and **Graphics**\u3010Chunk\u202f1\u3011.",
+      "generated_answer": "NVIDIA conducts its business through two reportable segments: **Compute\u202f&\u202fNetworking** and **Graphics**\u3010Chunk\u202f1\u3011\u3010Chunk\u202f2\u3011",
       "reference_answer": "NVIDIA conducts its business through two reportable segments: Compute & Networking and Graphics.",
       "retrieval_metrics": {
         "hit_rate": 1.0,
@@ -348,21 +348,21 @@
         "precision": 0.8
       },
       "em": 0.0,
-      "f1": 0.88,
+      "f1": 0.8462,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 20.82,
-      "total_latency_ms": 8197.66,
+      "retrieval_latency_ms": 39.13,
+      "total_latency_ms": 929.93,
       "token_usage": {
         "prompt_tokens": 870,
-        "completion_tokens": 142,
-        "total_tokens": 1012
+        "completion_tokens": 132,
+        "total_tokens": 1002
       }
     },
     {
       "id": 15,
       "question": "What are NVIDIA's accelerated computing architectures mentioned in the report?",
       "is_answerable": true,
-      "generated_answer": "NVIDIA\u2019s report references its **GPU architecture** as the core of its accelerated\u2011computing platforms\u202f[Chunk\u202f3] and notes that the **CUDA programming model** runs on all NVIDIA GPUs, forming part of its full\u2011stack accelerated\u2011computing infrastructure\u202f[Chunk\u202f5].",
+      "generated_answer": "NVIDIA\u2019s report references its\u202fGPU architecture\u202fas the foundation of its accelerated computing platforms\u3010Chunk 3\u3011.",
       "reference_answer": "NVIDIA develops accelerated computing architectures including Hopper and Blackwell, featuring Tensor Core GPUs, NVLink, and InfiniBand networking.",
       "retrieval_metrics": {
         "hit_rate": 0.0,
@@ -372,14 +372,14 @@
         "precision": 0.0
       },
       "em": 0.0,
-      "f1": 0.1569,
+      "f1": 0.129,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 23.57,
-      "total_latency_ms": 5417.06,
+      "retrieval_latency_ms": 67.42,
+      "total_latency_ms": 13106.58,
       "token_usage": {
         "prompt_tokens": 751,
-        "completion_tokens": 241,
-        "total_tokens": 992
+        "completion_tokens": 222,
+        "total_tokens": 973
       }
     },
     {
@@ -398,8 +398,8 @@
       "em": 0.0,
       "f1": 0.439,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 51.94,
-      "total_latency_ms": 9129.82,
+      "retrieval_latency_ms": 64.04,
+      "total_latency_ms": 11875.65,
       "token_usage": {
         "prompt_tokens": 940,
         "completion_tokens": 175,
@@ -422,8 +422,8 @@
       "em": 0.0,
       "f1": 0.5385,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 25.81,
-      "total_latency_ms": 8859.21,
+      "retrieval_latency_ms": 36.78,
+      "total_latency_ms": 3745.46,
       "token_usage": {
         "prompt_tokens": 990,
         "completion_tokens": 143,
@@ -446,8 +446,8 @@
       "em": 1.0,
       "f1": 1.0,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 10.0,
-      "total_latency_ms": 10.03,
+      "retrieval_latency_ms": 14.84,
+      "total_latency_ms": 14.9,
       "token_usage": {
         "prompt_tokens": 0,
         "completion_tokens": 0,
@@ -470,8 +470,8 @@
       "em": 1.0,
       "f1": 1.0,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 10.27,
-      "total_latency_ms": 6686.24,
+      "retrieval_latency_ms": 18.5,
+      "total_latency_ms": 2107.66,
       "token_usage": {
         "prompt_tokens": 865,
         "completion_tokens": 74,
@@ -494,8 +494,8 @@
       "em": 1.0,
       "f1": 1.0,
       "faithfulness": 1.0,
-      "retrieval_latency_ms": 11.83,
-      "total_latency_ms": 8126.22,
+      "retrieval_latency_ms": 15.58,
+      "total_latency_ms": 16594.32,
       "token_usage": {
         "prompt_tokens": 917,
         "completion_tokens": 126,
