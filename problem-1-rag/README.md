@@ -4,6 +4,13 @@ A production-grade, highly cost-efficient Retrieval-Augmented Generation (RAG) s
 
 Eliminates idle cloud database costs, achieves **< 10ms retrieval latency**, guarantees **strict idempotency (0 duplicate vectors)**, provides **cited answers with zero-hallucination fallback**, and demonstrates **83% to 88% cost savings** over managed vector databases.
 
+> [!NOTE]
+> **Real-World Corpus Grounding:**
+> Unlike synthetic mock data, this production RAG service is evaluated over an authentic, heterogeneous document corpus:
+> 1. **Professional Resume (`data/raw/resume.md`):** Mohammad Farhan Alam's real career history, education at Chandigarh University, Agentic AI specializations, and SmartBridge/Infosys internships.
+> 2. **Portfolio Website (`data/raw/index.html`):** The author's live portfolio architecture featuring Three.js 3D animations and Neo-Brutalist design tokens.
+> 3. **SEC Financial Filing (`data/raw/NVIDIA.pdf`):** NVIDIA Corporation's official Form 10-K Annual Report for the fiscal year ended January 26, 2025.
+
 ---
 
 ## 1. System Architecture

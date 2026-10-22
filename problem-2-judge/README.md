@@ -4,6 +4,13 @@ A robust, production-grade LLM-as-Judge evaluation framework built with **Groq**
 
 Designed to evaluate model releases, conduct pairwise A/B benchmarking, and provide auditable, tamper-evident quality decisions for automated release gating.
 
+> [!NOTE]
+> **Domain-Grounded Evaluation Dataset:**
+> All 15 pairwise A/B test cases and adversarial probes are grounded in the real-world corpus from Problem 1:
+> 1. **Candidate Resume:** Verifying candidate model claims regarding engineering specializations, career history, and university education.
+> 2. **Portfolio Website:** Testing visual architecture, Three.js 3D Holo-Deck parameters, and Neo-Brutalist design constraints.
+> 3. **NVIDIA Form 10-K Filing:** Testing financial precision, statutory IRS EINs, SEC file numbers, and accelerated architecture details.
+
 ---
 
 ## 1. System Architecture
