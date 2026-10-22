@@ -1,0 +1,18 @@
+[project]
+name = "problem-2-judge"
+version = "0.1.0"
+description = "Production LLM-as-Judge Evaluation Pipeline with Comprehensive Bias Mitigation"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "groq>=1.7.0",
+    "numpy>=2.2.0",
+    "pydantic>=2.10.0",
+    "pydantic-settings>=2.7.0",
+    "pytest>=8.3.0",
+    "python-dotenv>=1.0.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

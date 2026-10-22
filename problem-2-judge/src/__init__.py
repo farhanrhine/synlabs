@@ -1,0 +1,8 @@
+# Problem 2: LLM-as-Judge Evaluation Package
+import sys
+
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
