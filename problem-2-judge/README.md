@@ -162,7 +162,7 @@ The adversarial test suite ([`evaluation/adversarial.jsonl`](file:///c:/synlabs/
 
 Evaluated across **15 diverse test cases from Problem 1 real dataset** (Farhan's Resume, Farhan's Portfolio, and NVIDIA Form 10-K):
 
-* **Config A (`openai/gpt-oss-120b`):** Detailed, authoritative, structured explanations with technical precision and exact numbers.
+* **Config A (`openai/gpt-oss-20b`):** Detailed, authoritative, structured explanations with technical precision and exact numbers.
 * **Config B (`qwen/qwen3.8-27b`):** Concise, conversational, high-level summaries.
 
 ### Summary Metrics Table
@@ -174,7 +174,7 @@ Evaluated across **15 diverse test cases from Problem 1 real dataset** (Farhan's
 | **Ties** | **7** (46.7%) |
 | **Config A Mean Score** | **4.99 / 5.0** |
 | **Config B Mean Score** | **4.66 / 5.0** |
-| **Declared Winner** | **Config A (`openai/gpt-oss-120b`)** |
+| **Declared Winner** | **Config A (`openai/gpt-oss-20b`)** |
 | **Total Judge API Calls** | **30 calls** (2 per case for position swap) |
 | **Position Flip Rate (Before Mitigation)** | **33.3%** (5 / 15 cases flipped on order) |
 | **Position Flip Rate (After Mitigation)** | **0.0%** (100% neutralized) |
