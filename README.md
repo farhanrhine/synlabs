@@ -22,10 +22,6 @@ This repository contains the complete, production-grade solutions for both probl
 
 ```text
 synlabs/
-├── docs/                                # Assignment brief and problem specifications
-│   ├── Gen AI_assignment.pdf
-│   ├── problem1.md
-│   └── problem2.md
 ├── problem-1-rag/                       # Problem 1: Cost-Efficient RAG System
 │   ├── data/
 │   │   ├── raw/                         # Real corpus (resume.md, index.html, NVIDIA.pdf)
