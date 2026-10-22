@@ -1,12 +1,3 @@
-# SynLabs Generative AI Engineering Assignment
-
-**Author:** Mohammad Farhan Alam  
-**Repository:** [github.com/farhanrhine/synlabs](https://github.com/farhanrhine/synlabs)  
-**Dataset Grounding:** Real Corpus (Candidate Resume, Portfolio Website, NVIDIA Form 10-K Annual Report)  
-**Test Suite Status:** 22 / 22 Passing Unit Tests (`uv run pytest`)
-
----
-
 ## 📌 Executive Summary
 
 This repository contains the complete, production-grade solutions for both problems specified in the SynLabs Generative AI Engineering Assignment:
