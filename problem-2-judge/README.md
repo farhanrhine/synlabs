@@ -93,7 +93,7 @@ cp .env.example .env
 ```
 Ensure `GROQ_API_KEY` is provided. The models are loaded dynamically from environment variables without hardcoded secrets:
 * `JUDGE_MODEL=openai/gpt-oss-120b`
-* `GENERATOR_MODEL_A=openai/gpt-oss-120b`
+* `GENERATOR_MODEL_A=openai/gpt-oss-20b`
 * `GENERATOR_MODEL_B=qwen/qwen3.8-27b`
 
 ### Step 3: Run Full Benchmark Suite (A/B Comparison + Bias Probes)
@@ -204,7 +204,7 @@ Evaluated across **15 diverse test cases from Problem 1 real dataset** (Farhan's
 
 Every evaluation is recorded in [`artifacts/audit_logs.jsonl`](file:///c:/synlabs/problem-2-judge/artifacts/audit_logs.jsonl) with full prompt text, raw completions, parsed criterion scores, latency, and timestamp.
 
-### 9.1 Auditable Raw Judge Output Snippet
+### 9.1 Auditable Raw Judge Output Snippet (Test Case `ab_01` — Real Corpus)
 ```json
 {
   "mode": "pairwise_call",
@@ -214,21 +214,28 @@ Every evaluation is recorded in [`artifacts/audit_logs.jsonl`](file:///c:/synlab
   "label_b": "Config B",
   "winner": "Config A",
   "candidate_a_scores": [
-    {"criterion": "Correctness", "score": 5.0, "rationale": "Accurately defines HNSW graph O(log N) complexity and IVF-PQ Voronoi clustering."},
-    {"criterion": "Faithfulness", "score": 5.0, "rationale": "All statements match reference facts."},
-    {"criterion": "Completeness", "score": 5.0, "rationale": "Answers all parts of prompt."},
-    {"criterion": "InstructionFollowing", "score": 5.0, "rationale": "Follows concise instructions."},
-    {"criterion": "ConcisenessAndSafety", "score": 4.5, "rationale": "Clear, professional, no padding."}
+    {"criterion": "Correctness", "score": 5.0, "rationale": "The answer exactly matches the reference facts, naming Agentic AI and ML Engineering and all four specializations."},
+    {"criterion": "Faithfulness", "score": 5.0, "rationale": "Every claim is directly supported by the provided reference; no unsupported information is added."},
+    {"criterion": "Completeness", "score": 5.0, "rationale": "All required components (Agentic AI/ML, Autonomous Multi-Agent Workflows, MCP Infrastructure, Digital Twin Simulations, Production MLOps) are included."},
+    {"criterion": "InstructionFollowing", "score": 5.0, "rationale": "The response answers the question directly and follows the simple format requested."},
+    {"criterion": "ConcisenessAndSafety", "score": 5.0, "rationale": "The answer is brief, clear, and contains no filler or unsafe content."}
   ],
-  "justification": "Candidate A provides superior technical precision with explicit complexity notations.",
-  "latency_ms": 3245.59
+  "candidate_b_scores": [
+    {"criterion": "Correctness", "score": 3.0, "rationale": "The answer correctly identifies AI/ML engineering, but omits key terms like Agentic AI, MCP Infrastructure, and Digital Twin Simulations."},
+    {"criterion": "Faithfulness", "score": 4.0, "rationale": "All stated facts are supported by reference, though the answer is less detailed."},
+    {"criterion": "Completeness", "score": 2.5, "rationale": "Leaves out several major specializations, providing only a partial picture."},
+    {"criterion": "InstructionFollowing", "score": 5.0, "rationale": "Follows the instruction to answer directly."},
+    {"criterion": "ConcisenessAndSafety", "score": 5.0, "rationale": "Succinct and contains no unsafe content."}
+  ],
+  "justification": "Candidate A provides a fully accurate, faithful, and complete description of Mohammad Farhan Alam's primary engineering domain, matching all reference details, whereas Candidate B omits several key specializations.",
+  "latency_ms": 6589.0
 }
 ```
 
 ### 9.2 Position Swap Order Disagreement Resolution
 ```text
-[ORDER 1: (A, B)] -> Winner: Config A (A=4.7, B=4.1)
-[ORDER 2: (B, A)] -> Winner: Config B (B=4.4, A=4.5) [Raw Order Flip Detected]
-[MITIGATION] -> Disagreement resolved via averaged scores (A=4.60 vs B=4.25).
-Final Mitigated Winner: Config A. Post-mitigation flip rate: 0.0%.
+[ORDER 1: (Config A, Config B)] -> Winner: Config A (A=4.97, B=3.83)
+[ORDER 2: (Config B, Config A)] -> Winner: Config A (Slot 2) (A=4.97, B=3.83)
+[CONSENSUS] -> Both permutations agree that Config A is superior.
+Final Mitigated Winner: Config A (openai/gpt-oss-20b). Post-mitigation flip rate: 0.0%.
 ```
