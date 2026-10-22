@@ -10,21 +10,26 @@ Eliminates idle cloud database costs, achieves **< 10ms retrieval latency**, gua
 
 ```mermaid
 graph TD
-    A["Corpus Documents (PDF, HTML, MD)"] --> B["Deterministic Ingestion Pipeline"]
-    B --> C["Sliding Window Chunking<br/>500 chars / 100 overlap"]
-    C --> D["Deterministic ID Generator<br/>UUIDv5 via SHA256"]
-    D --> E["FastEmbed Local ONNX CPU<br/>BAAI/bge-small-en-v1.5 (384-dim)"]
-    E --> F[("Qdrant Embedded Store<br/>Local On-Disk ./data/qdrant")]
+    subgraph Ingestion ["1. Offline / Document Ingestion"]
+        A["Corpus Documents (PDF, HTML, MD)"] --> B["Deterministic Ingestion Pipeline"]
+        B --> C["Sliding Window Chunking<br/>500 chars / 100 overlap"]
+        C --> D["Deterministic ID Generator<br/>UUIDv5 via SHA256"]
+        D --> E["FastEmbed Local ONNX CPU<br/>BAAI/bge-small-en-v1.5 (384-dim)"]
+        E --> F[("Qdrant Embedded Store<br/>Local On-Disk ./data/qdrant")]
+    end
     
-    G["User Query (API / CLI)"] --> H["FastEmbed Query Embedding"]
-    H --> I["Qdrant Top-k Vector Search<br/>+ Payload Metadata Filters"]
-    
-    I --> J{"Cosine Similarity &ge; 0.55?"}
-    J -- Yes --> K["Format Context Blocks<br/>Append Chunk Citations"]
-    K --> L["Groq LLM Generation<br/>openai/gpt-oss-120b"]
-    L --> M["Grounded Cited Response<br/>+ Token & Latency Telemetry"]
-    
-    J -- No Context --> N["Strict Fallback Branch<br/>Insufficient Context Refusal"]
+    subgraph QueryFlow ["2. Online Query & Generation"]
+        G["User Query (API / CLI)"] --> H["FastEmbed Query Embedding"]
+        H --> I["Qdrant Top-k Vector Search<br/>+ Payload Metadata Filters"]
+        F -. "Read Index & Payloads" .-> I
+        
+        I --> J{"Cosine Similarity &ge; 0.55?"}
+        J -- "Yes (Passes Threshold)" --> K["Format Context Blocks<br/>Append Chunk Citations"]
+        K --> L["Groq LLM Generation<br/>openai/gpt-oss-120b"]
+        L --> M["Grounded Cited Response<br/>+ Token & Latency Telemetry"]
+        
+        J -- "No Context / Below Threshold" --> N["Strict Fallback Branch<br/>Insufficient Context Refusal"]
+    end
 ```
 
 ### Architecture Data Flow
